@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>에브리타임</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="/static/css/about/fonts.css" rel="stylesheet">
-    <link type="text/css" href="/static/css/about/styles.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/about.js"></script>
+    <link type="text/css" href="/static/css/about/fonts.css" th:href="@{/css/about/fonts.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/about/styles.css" th:href="@{/css/about/styles.css}" rel="stylesheet">
+    <link href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon" type="image/x-icon">
 
-    <link href="/static/icon/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <title>에브리타임</title>
+    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="/static/js/about.js" th:src="@{/js/about.js}"></script>
 </head>
 <body>
 <aside>
     <div class="login">
-        <a href="/" class="logo"><img src="/static/images/index/logo.png" alt="에브리타임"></a>
+        <a href="/" class="logo"><img src="/static/images/index/logo.png" th:src="@{/images/index/logo.png}" alt="에브리타임"></a>
         <a href="/login" class="button login">로그인</a>
         <a href="/register" class="button register">에브리타임 회원가입</a>
         <p class="find">
@@ -68,8 +69,8 @@
     <div class="wrap">
         <h1>대학 생활을 더 편하고 즐겁게,<br><strong>에브리타임</strong></h1>
         <div class="stores">
-            <a href="/page/mlink?lid=web_about&store=playstore"><img src="/static/images/index/playstore.png" alt="에브리타임 - Play Store - Google"></a>
-            <a href="/page/mlink?lid=web_about&store=appstore"><img src="/static/images/index/appstore.png" alt="에브리타임 - AppStore - Apple"></a>
+            <a href="/page/mlink?lid=web_about&store=playstore"><img src="/static/images/index/playstore.png" th:src="@{/images/index/playstore.png}" alt="에브리타임 - Play Store - Google"></a>
+            <a href="/page/mlink?lid=web_about&store=appstore"><img src="/static/images/index/appstore.png" th:src="@{/images/index/appstore.png}" alt="에브리타임 - AppStore - Apple"></a>
         </div>
         <hr>
         <div class="device">
@@ -120,15 +121,15 @@
     </div>
     <div class="figures">
         <div>
-            <p class="icon"><img src="/static/images/index/icon.authorized.png" alt=""></p>
+            <p class="icon"><img src="/static/images/index/icon.authorized.png" th:src="@{/images/index/icon.authorized.png}" alt=""></p>
             <p class="description">철저한 학교 인증</p>
         </div>
         <div>
-            <p class="icon"><img src="/static/images/index/icon.anonymous.png" alt=""></p>
+            <p class="icon"><img src="/static/images/index/icon.anonymous.png" th:src="@{/images/index/icon.anonymous.png}" alt=""></p>
             <p class="description">완벽한 익명 시스템</p>
         </div>
         <div>
-            <p class="icon"><img src="/static/images/index/icon.users.png" alt=""></p>
+            <p class="icon"><img src="/static/images/index/icon.users.png" th:src="@{/images/index/icon.users.png}" alt=""></p>
             <p class="description">재학생 운영 게시판</p>
         </div>
     </div>
