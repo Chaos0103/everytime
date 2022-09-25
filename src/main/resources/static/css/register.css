@@ -220,7 +220,7 @@ textarea {
 }
 
 #container div.agreement label input[type=checkbox]:checked~figure.checkbox {
-    background-image: url("/everytime/static/img/register.agreement.checkbox.checked.png")
+    background-image: url("/images/register.agreement.checkbox.checked.png")
 }
 
 #container div.agreement label figure.checkbox {
@@ -228,7 +228,7 @@ textarea {
     margin: 13px 8px 0 0;
     width: 14px;
     height: 14px;
-    background-image: url("/everytime/static/img/register.agreement.checkbox.unchecked.png");
+    background-image: url("/images/register.agreement.checkbox.unchecked.png");
     background-size: 14px 14px;
     vertical-align: top
 }
