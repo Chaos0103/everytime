@@ -1,39 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-import React, {useState, useEffect} from "react";
+import React from "react";
+import {Route, BrowserRouter, Routes} from "react-router-dom";
+import IndexPage from "./components/Index";
+import LoginPage from "./components/Login";
+import MainPage from "./components/Main";
+import "./css/common.css"
 
 function App() {
-  const [message, setMessage] = useState([]);
-  useEffect(() => {
-    fetch("/hello")
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setMessage(data);
-        });
-  }, []);
-  return (
-      <div className="App">
-        <header className="App-header">
-          {/*<img src={logo} className="App-logo" alt="logo"/>*/}
-          {/*<p>*/}
-          {/*  Edit <code>src/App.js</code> and save to reload.*/}
-          {/*</p>*/}
-          {/*<a*/}
-          {/*    className="App-link"*/}
-          {/*    href="https://reactjs.org"*/}
-          {/*    target="_blank"*/}
-          {/*    rel="noopener noreferrer"*/}
-          {/*>*/}
-          {/*  Learn React*/}
-          {/*</a>*/}
-          <ul>
-            {message.map((v, idx) => <li key={'${idx}-${v}'}></li>)}
-          </ul>
-        </header>
-      </div>
-  );
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<IndexPage/>}></Route>
+                <Route path="/login" element={<LoginPage/>}></Route>
+                <Route path="/main" element={<MainPage/>}></Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
