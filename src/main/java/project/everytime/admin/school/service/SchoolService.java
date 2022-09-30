@@ -2,7 +2,7 @@ package project.everytime.admin.school.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import project.everytime.admin.school.School;
-import project.everytime.admin.school.dto.UpdateSchool;
+import project.everytime.admin.school.dto.SchoolEdit;
 
 @Transactional
 public interface SchoolService {
@@ -17,10 +17,11 @@ public interface SchoolService {
 
     /**
      * 학교 정보를 수정하는 로직
+     *
      * @param updateSchool 수정할 학교의 정보
-     * @exception project.everytime.exception.DuplicateException 학교, 전화번호, 주소, url 중복시 예외 발생
+     * @throws project.everytime.exception.DuplicateException 학교, 전화번호, 주소, url 중복시 예외 발생
      */
-    void editSchool(UpdateSchool updateSchool);
+    void editSchool(Long schoolId, SchoolEdit updateSchool);
 
     /**
      * 학교를 삭제하는 로직

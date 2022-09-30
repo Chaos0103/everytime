@@ -17,7 +17,7 @@ public class School extends TimeBaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 50)
-    private String schoolName;
+    private String name;
     @Column(nullable = false, length = 10)
     private String campus;
     @Enumerated(EnumType.STRING)
@@ -35,8 +35,8 @@ public class School extends TimeBaseEntity {
     @Column(nullable = false)
     private int count;
 
-    public School(String schoolName, String campus, SchoolType type, String tel, String address, City city, String url) {
-        this.schoolName = schoolName;
+    public School(String name, String campus, SchoolType type, String tel, String address, City city, String url) {
+        this.name = name;
         this.campus = campus;
         this.type = type;
         this.tel = tel;
@@ -46,8 +46,8 @@ public class School extends TimeBaseEntity {
     }
 
     //==비즈니스 로직==//
-    public void update(String schoolName, String campus, SchoolType type, String tel, String address, City city, String url) {
-        this.schoolName = schoolName;
+    public void update(String name, String campus, SchoolType type, String tel, String address, City city, String url) {
+        this.name = name;
         this.campus = campus;
         this.type = type;
         this.tel = tel;

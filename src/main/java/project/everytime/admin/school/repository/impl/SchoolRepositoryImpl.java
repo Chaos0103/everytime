@@ -2,12 +2,15 @@ package project.everytime.admin.school.repository.impl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import project.everytime.admin.school.City;
-import project.everytime.admin.school.QSchool;
 import project.everytime.admin.school.School;
 import project.everytime.admin.school.SchoolType;
-import project.everytime.admin.school.dto.SearchSchool;
+import project.everytime.admin.school.dto.SchoolResponse;
+import project.everytime.admin.school.dto.SchoolSearchCondition;
 import project.everytime.admin.school.repository.SchoolRepositoryCustom;
 
 import javax.persistence.EntityManager;
@@ -24,21 +27,49 @@ public class SchoolRepositoryImpl implements SchoolRepositoryCustom {
     }
 
     @Override
-    public List<School> findAllByConditional(SearchSchool search) {
+    public Page<SchoolResponse> findAllByConditional(SchoolSearchCondition condition, Pageable pageable) {
+        List<School> schools = queryFactory
+                .selectFrom(school)
+                .where(
+                        nameEq(condition.getName()),
+                        typeEq(condition.getType()),
+                        cityEq(condition.getCity())
+                )
+                .orderBy(school.lastModifiedDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        List<SchoolResponse> content = schools.stream()
+                .map(SchoolResponse::new)
+                .toList();
+
+        int count = queryFactory
+                .selectFrom(school)
+                .where(
+                        nameEq(condition.getName()),
+                        typeEq(condition.getType()),
+                        cityEq(condition.getCity())
+                )
+                .fetch().size();
+
+        return new PageImpl<>(content, pageable, count);
+    }
+
+    @Override
+    public List<School> findSchoolList(String name) {
         return queryFactory
                 .selectFrom(school)
                 .where(
-                        schoolNameEq(search.getSchoolName()),
-                        typeEq(search.getType()),
-                        cityEq(search.getCity())
+                        nameEq(name)
                 )
-                .orderBy(school.lastModifiedDate.desc())
+                .orderBy(school.count.desc())
                 .fetch();
-        // TODO: 2022/09/27 paging 추가
+        // TODO: 2022/09/29 like로 변경
     }
 
-    private BooleanExpression schoolNameEq(String schoolName) {
-        return StringUtils.hasText(schoolName) ? school.schoolName.eq(schoolName) : null;
+    private BooleanExpression nameEq(String name) {
+        return StringUtils.hasText(name) ? school.name.contains(name) : null;
     }
 
     private BooleanExpression typeEq(SchoolType type) {

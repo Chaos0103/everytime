@@ -9,7 +9,7 @@
 
     <link type="text/css" href="/static/css/about/fonts.css" th:href="@{/css/about/fonts.css}" rel="stylesheet">
     <link type="text/css" href="/static/css/about/styles.css" th:href="@{/css/about/styles.css}" rel="stylesheet">
-    <link href="/favicon.ico" th:href="@{/favicon.ico}" rel="shortcut icon" type="image/x-icon">
+    <link href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon" type="image/x-icon">
 
     <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
     <script type="text/javascript" src="/static/js/about.js" th:src="@{/js/about.js}"></script>
@@ -17,11 +17,11 @@
 <body>
 <aside>
     <div class="login">
-        <a href="/" class="logo"><img src="/static/images/index/logo.png" th:src="@{/images/index/logo.png}" alt="에브리타임"></a>
-        <a href="/login" class="button login">로그인</a>
-        <a href="/register" class="button register">에브리타임 회원가입</a>
+        <a href="/templates/index.html" th:href="@{/}" class="logo"><img src="/static/images/index/logo.png" th:src="@{/images/index/logo.png}" alt="에브리타임"></a>
+        <a href="/templates/common/login.html" th:href="@{/login}" class="button login">로그인</a>
+        <a href="/register" th:href="@{/register}" class="button register">에브리타임 회원가입</a>
         <p class="find">
-            <a href="/forgot">아이디/비밀번호 찾기</a>
+            <a href="/forgot" th:href="@{/forgot}">아이디/비밀번호 찾기</a>
         </p>
         <hr>
     </div>
@@ -30,39 +30,9 @@
         <input type="text" name="name" placeholder="찾으시는 캠퍼스를 검색하세요." autocomplete="off">
     </form>
     <div class="campuslist">
-        <a href="#"><span class="name">경희대</span><span class="count">47,956명</span></a>
-        <a href="#"><span class="name">중앙대</span><span class="count">43,121명</span></a>
-        <a href="#"><span class="name">연세대 신촌캠</span><span class="count">41,846명</span></a>
-        <a href="#"><span class="name">성균관대</span><span class="count">39,714명</span></a>
-        <a href="#"><span class="name">고려대 서울캠</span><span class="count">37,667명</span></a>
-        <a href="#"><span class="name">단국대</span><span class="count">36,812명</span></a>
-        <a href="#"><span class="name">서울대</span><span class="count">36,476명</span></a>
-        <a href="#"><span class="name">강원대</span><span class="count">33,614명</span></a>
-        <a href="#"><span class="name">한양대 서울캠</span><span class="count">33,461명</span></a>
-        <a href="#"><span class="name">인하대</span><span class="count">31,679명</span></a>
-        <a href="#"><span class="name">한국외대</span><span class="count">31,548명</span></a>
-        <a href="#"><span class="name">가천대</span><span class="count">31,516명</span></a>
-        <a href="#"><span class="name">이화여대</span><span class="count">29,311명</span></a>
-        <a href="#"><span class="name">건국대 서울캠</span><span class="count">29,161명</span></a>
-        <a href="#"><span class="name">국민대</span><span class="count">27,069명</span></a>
-        <a href="#"><span class="name">숭실대</span><span class="count">24,672명</span></a>
-        <a href="#"><span class="name">홍익대 서울캠</span><span class="count">24,348명</span></a>
-        <a href="#"><span class="name">명지대</span><span class="count">22,628명</span></a>
-        <a href="#"><span class="name">세종대</span><span class="count">20,900명</span></a>
-        <a href="#"><span class="name">인천대</span><span class="count">20,576명</span></a>
-        <a href="#"><span class="name">숙명여대</span><span class="count">20,141명</span></a>
-        <a href="#"><span class="name">성신여대</span><span class="count">19,190명</span></a>
-        <a href="#"><span class="name">서울과기대</span><span class="count">17,077명</span></a>
-        <a href="#"><span class="name">한양대 ERICA캠</span><span class="count">16,907명</span></a>
-        <a href="#"><span class="name">서울시립대</span><span class="count">16,217명</span></a>
-        <a href="#"><span class="name">광운대</span><span class="count">15,335명</span></a>
-        <a href="#"><span class="name">서강대</span><span class="count">14,519명</span></a>
-        <a href="#"><span class="name">가톨릭대</span><span class="count">13,814명</span></a>
-        <a href="#"><span class="name">서울여대</span><span class="count">13,458명</span></a>
-        <a href="#"><span class="name">동덕여대</span><span class="count">11,847명</span></a>
-        <a href="#"><span class="name">상명대 서울캠</span><span class="count">11,293명</span></a>
-        <a href="#"><span class="name">덕성여대</span><span class="count">11,073명</span></a>
-        <a href="#"><span class="name">한국공학대</span><span class="count">11,045명</span></a>
+        <th:block th:each="school : ${schoolList}">
+            <a href="#"><span class="name" th:text="${school.schoolName}">경희대</span><span class="count" th:text="${school.count}">47,956명</span></a>
+        </th:block>
     </div>
 </aside>
 <section class="init">

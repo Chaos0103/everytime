@@ -9,7 +9,7 @@ import project.everytime.admin.school.SchoolType;
 public class SchoolResponse {
 
     private Long id;
-    private String schoolName;
+    private String name;
     private String campus;
     private SchoolType type;
     private String tel;
@@ -20,7 +20,7 @@ public class SchoolResponse {
 
     public SchoolResponse(School school) {
         this.id = school.getId();
-        this.schoolName = school.getSchoolName();
+        this.name = school.getName();
         this.campus = school.getCampus();
         this.type = school.getType();
         this.tel = school.getTel();

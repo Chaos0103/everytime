@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface SchoolRepository extends JpaRepository<School, Long>, SchoolRepositoryCustom {
 
-    Optional<School> findBySchoolNameAndCampus(String schoolName, String campus);
+    Optional<School> findByNameAndCampus(String name, String campus);
 
     Optional<School> findByTel(String tel);
 

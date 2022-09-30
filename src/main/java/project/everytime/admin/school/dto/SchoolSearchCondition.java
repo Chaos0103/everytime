@@ -5,13 +5,9 @@ import project.everytime.admin.school.City;
 import project.everytime.admin.school.SchoolType;
 
 @Data
-public class UpdateSchool {
-    private Long id;
-    private String schoolName;
-    private String campus;
+public class SchoolSearchCondition {
+
+    private String name;
     private SchoolType type;
-    private String tel;
-    private String address;
     private City city;
-    private String url;
 }

@@ -9,7 +9,11 @@ class CampusList extends Component {
     }
 
     componentDidMount() {
-        IndexService.getSchoolList()
+        let param = new URLSearchParams(window.location.search).get("name");
+        if (param === null) {
+            param = "";
+        }
+        IndexService.getSchoolList(param)
             .then((response) => {
                 this.setState({schoolList: response.data})
             });
@@ -18,7 +22,6 @@ class CampusList extends Component {
     numberFormat(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
 
     render() {
         return (
@@ -49,10 +52,11 @@ function Aside () {
     }
 
     function SearchForm() {
+
         return (
             <form className={style.search}>
                 <p>우리 학교 커뮤니티 둘러보기</p>
-                <input type="text" name="name" placeholder="찾으시는 캠퍼스를 검색하세요." autoComplete="off"/>
+                <input id="searchForm" type="text" name="name" placeholder="찾으시는 캠퍼스를 검색하세요." autoComplete="off"/>
             </form>
         );
     }

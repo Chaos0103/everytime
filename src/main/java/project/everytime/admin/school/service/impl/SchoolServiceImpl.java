@@ -3,7 +3,7 @@ package project.everytime.admin.school.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.everytime.admin.school.School;
-import project.everytime.admin.school.dto.UpdateSchool;
+import project.everytime.admin.school.dto.SchoolEdit;
 import project.everytime.admin.school.repository.SchoolRepository;
 import project.everytime.admin.school.service.SchoolService;
 import project.everytime.exception.DuplicateException;
@@ -18,7 +18,7 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public Long addSchool(School school) {
-        duplicatedSchool(school.getSchoolName(), school.getCampus());
+        duplicatedSchool(school.getName(), school.getCampus());
         duplicatedTel(school.getTel());
         duplicatedAddress(school.getAddress());
         duplicatedUrl(school.getUrl());
@@ -29,13 +29,13 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public void editSchool(UpdateSchool updateSchool) {
-        School findSchool = schoolRepository.findById(updateSchool.getId()).orElse(null);
+    public void editSchool(Long schoolId, SchoolEdit updateSchool) {
+        School findSchool = schoolRepository.findById(schoolId).orElse(null);
         if (findSchool == null) {
             throw new IllegalArgumentException();
         }
 
-        if (!findSchool.getSchoolName().equals(updateSchool.getSchoolName())
+        if (!findSchool.getName().equals(updateSchool.getSchoolName())
                 || !findSchool.getCampus().equals(updateSchool.getCampus())) {
             duplicatedSchool(updateSchool.getSchoolName(), updateSchool.getCampus());
         }
@@ -81,7 +81,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     private void duplicatedSchool(String schoolName, String campus) {
-        Optional<School> findSchool = schoolRepository.findBySchoolNameAndCampus(schoolName, campus);
+        Optional<School> findSchool = schoolRepository.findByNameAndCampus(schoolName, campus);
         validation(findSchool, "이미 등록된 학교입니다");
     }
 
