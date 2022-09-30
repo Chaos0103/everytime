@@ -1,0 +1,26 @@
+body.appwebview div.container{padding-top:0}
+@media only screen and (min-width: 780px){
+    div.container {
+        padding-top: 80px;
+    }
+}
+@media only screen and (max-width: 779px){
+    div.container {
+        padding-top: 56px;
+    }
+}
+div.container section {
+    padding: 24px;
+}
+
+@media only screen and (min-width: 780px) {
+    div.container section {
+        box-sizing: border-box;
+        border: 1px solid #EDEDED;
+        border-radius: 12px;
+        margin: 24px auto 0 auto;
+        width: 780px;
+    }
+}
+@media only screen and (min-width: 780px){div.container section h1{margin-bottom:24px;line-height:30px;color:#292929;font-size:22px;font-weight:bold}}
+@media only screen and (max-width: 779px){div.container section h1{display:none}}div.container section div.content h3{margin:48px 0 8px 0;line-height:26px;color:#292929;font-size:18px;font-weight:bold}div.container section div.content h3:first-of-type{margin-top:0}div.container section div.content h4{margin-top:8px;line-height:22px;color:#292929;font-size:14px;font-weight:bold}div.container section div.content p{margin-top:8px;line-height:22px;color:#444444;font-size:14px}div.container section div.content ol{margin-top:8px;padding-left:16px}div.container section div.content ol li{list-style-type:decimal;padding-left:4px;line-height:22px;color:#444444;font-size:14px}div.container section div.content ol ol{margin-top:0;padding-left:24px}div.container section div.content ol ol li{list-style-type:disc;padding-left:0}div.container section div.content ol ol ol li{list-style-type:circle}div.container section div.content a{color:#292929;font-weight:bold}div.container section div.content pre{line-height:22px;white-space:pre-line;color:#444444;font-size:14px}div.container section a.prev{display:inline-block;margin-top:24px;padding:0 8px;border-radius:8px;line-height:30px;color:#737373;font-size:12px;font-weight:bold;background-color:#F2F2F2}

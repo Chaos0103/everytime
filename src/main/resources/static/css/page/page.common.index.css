@@ -1,0 +1,41 @@
+div.head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%
+}
+
+@media only screen and (min-width: 780px){
+    div.head{border-bottom:1px solid #D6D6D6;background-color:#FFFFFF}
+    @media (prefers-color-scheme: delete){
+        div.head {
+            border-bottom: 1px solid #474747;
+            background-color: #111111;
+        }
+    }
+}
+
+
+
+@media only screen and (max-width: 779px){
+    div.head {
+        display: none;
+        height: 100%;
+    }
+    div.head.visible {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 780px){div.head div.wrap{position:relative;margin:0 auto;width:1180px}}
+@media only screen and (max-width: 779px){
+    div.head div.wrap {
+        flex: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        height: 100%;
+        background-color: #FFFFFF
+    }
+}
+div.head div.wrap div.logo{position:absolute;top:0;left:24px;display:flex;height:80px}div.head div.wrap div.logo a{margin-right:16px;align-self:center}div.head div.wrap div.logo a figure.logoimage{width:40px;height:40px;background-image:url("/images/partials/header/logo.light.png");background-size:cover}div.head div.wrap div.logo h1{display:flex;flex-direction:column;align-self:center}div.head div.wrap div.logo h1 p.subname{margin-left:3px;line-height:15px;color:#C62917;font-size:12px;font-weight:bold}div.head div.wrap div.logo h1 p.name{line-height:25px;color:#292929;font-size:22px}@media (prefers-color-scheme: delete){div.head div.wrap div.logo h1 p.name{color:#F0F0F0}}div.head div.wrap div.logo h1 p.single{color:#292929;font-size:18px;font-weight:bold}@media (prefers-color-scheme: delete){div.head div.wrap div.logo h1 p.single{color:#F0F0F0}}div.head div.wrap nav{display:flex}@media only screen and (min-width: 780px){div.head div.wrap nav{justify-content:center;height:80px}}@media only screen and (max-width: 779px){div.head div.wrap nav{flex-direction:column;padding-top:80px}}@media only screen and (min-width: 780px){div.head div.wrap nav div{margin:0 12px;border-bottom:4px solid rgba(0,0,0,0);line-height:80px}}div.head div.wrap nav div a{color:#444444;font-size:16px;font-weight:bold}@media (prefers-color-scheme: delete){div.head div.wrap nav div a{color:#C2C2C2}}@media only screen and (max-width: 779px){div.head div.wrap nav div a{display:block;padding:12px 24px;line-height:24px}}@media only screen and (min-width: 780px){div.head div.wrap nav div.active{border-color:#C62917}@media (prefers-color-scheme: delete){div.head div.wrap nav div.active{border-color:#E45E4F}}}@media only screen and (max-width: 779px){div.head div.wrap nav div.active{background-color:#F9F9F9}@media (prefers-color-scheme: delete){div.head div.wrap nav div.active{background-color:#1F1F1F}}}div.head div.wrap nav div.active a{color:#C62917}@media (prefers-color-scheme: delete){div.head div.wrap nav div.active a{color:#E45E4F}}div.head div.wrap div.account{position:absolute;display:flex;height:80px}@media only screen and (min-width: 780px){div.head div.wrap div.account{top:0;right:24px}}@media only screen and (max-width: 779px){div.head div.wrap div.account{bottom:0;left:24px}}div.head div.wrap div.account a{box-sizing:border-box;margin-left:4px;border:1px solid #D6D6D6;border-radius:12px;height:40px;align-self:center}@media (prefers-color-scheme: delete){div.head div.wrap div.account a{border:1px solid #474747}}div.head div.wrap div.account a.button{padding:0 12px;line-height:40px;color:#737373;font-size:14px}@media (prefers-color-scheme: delete){div.head div.wrap div.account a.button{color:#9A9A9A}}div.head div.wrap div.account a.button.red{border:0;color:#FFFFFF;font-weight:bold;background-color:#C62917}@media (prefers-color-scheme: delete){div.head div.wrap div.account a.button.red{color:#111111;background-color:#E45E4F}}div.head div.wrap div.account a.icon{position:relative;width:40px;color:rgba(0,0,0,0);font-size:0;background-repeat:no-repeat;background-position:center center}div.head div.wrap div.account a.icon.message{background-image:url("/images/common/icn_m_chat_gray800_light.png");background-size:24px 24px}@media (prefers-color-scheme: delete){div.head div.wrap div.account a.icon.message{background-image:url("/images/common/icn_m_chat_gray800_delete.png")}}div.head div.wrap div.account a.icon.my{background-image:url("/images/common/icn_m_account_gray800_light.png");background-size:24px 24px}@media (prefers-color-scheme: delete){div.head div.wrap div.account a.icon.my{background-image:url("/images/common/icn_m_account_gray800_delete.png")}}div.head div.wrap div.account a.icon span.badge{position:absolute;top:-4px;right:-4px;display:inline-block;padding:0 6px;border-radius:10px;line-height:16px;color:#FFFFFF;font-size:12px;font-weight:bold;background-color:#C62917}@media (prefers-color-scheme: delete){div.head div.wrap div.account a.icon span.badge{color:#111111;background-color:#E45E4F}}@media only screen and (min-width: 780px){div.head div.backdrop{display:none}}@media only screen and (max-width: 779px){div.head div.backdrop{width:56px;height:100%;background-color:rgba(0,0,0,.5)}}@media only screen and (min-width: 780px){div.navbar{display:none}}@media only screen and (max-width: 779px){div.navbar{position:fixed;top:0;left:0;z-index:90;display:flex;width:100%;height:56px;background-color:#FFFFFF}@media (prefers-color-scheme: delete){div.navbar{background-color:#111111}}div.navbar a.hamburger{width:56px;height:56px;background-image:url("/images/partials/header/hamburger.light.png");background-repeat:no-repeat;background-position:center center;background-size:18px 18px}@media (prefers-color-scheme: delete){div.navbar a.hamburger{background-image:url("/images/partials/header/hamburger.delete.png")}}div.navbar h1{flex:1;line-height:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#292929;font-size:18px;align-self:center}@media (prefers-color-scheme: delete){div.navbar h1{color:#F0F0F0}}}
+footer{display:flex;justify-content:center;flex-wrap:wrap}@media only screen and (min-width: 780px){footer{padding:24px 0}}@media only screen and (max-width: 779px){footer{padding:12px 0}}footer a{margin:0 4px 4px 4px;line-height:20px;color:#737373;font-size:12px}@media (prefers-color-scheme: delete){footer a{color:#9A9A9A}}footer a.copyright,footer a.privacy{font-weight:bold}
