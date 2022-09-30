@@ -26,4 +26,9 @@ public class PageController {
     public String rules() {
         return "page/rules";
     }
+
+    @GetMapping("/faq")
+    public String faq() {
+        return "page/faq";
+    }
 }
