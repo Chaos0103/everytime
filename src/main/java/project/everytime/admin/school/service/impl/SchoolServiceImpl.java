@@ -18,10 +18,7 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public Long addSchool(School school) {
-        duplicatedSchool(school.getName(), school.getCampus());
-        duplicatedTel(school.getTel());
-        duplicatedAddress(school.getAddress());
-        duplicatedUrl(school.getUrl());
+        duplicatedSchool(school.getName());
 
         School savedSchool = schoolRepository.save(school);
 
@@ -35,24 +32,11 @@ public class SchoolServiceImpl implements SchoolService {
             throw new IllegalArgumentException();
         }
 
-        if (!findSchool.getName().equals(updateSchool.getName())
-                || !findSchool.getCampus().equals(updateSchool.getCampus())) {
-            duplicatedSchool(updateSchool.getName(), updateSchool.getCampus());
+        if (!findSchool.getName().equals(updateSchool.getName())) {
+            duplicatedSchool(updateSchool.getName());
         }
 
-        if (!findSchool.getTel().equals(updateSchool.getTel())) {
-            duplicatedTel(updateSchool.getTel());
-        }
-
-        if (!findSchool.getAddress().equals(updateSchool.getAddress())) {
-            duplicatedAddress(updateSchool.getAddress());
-        }
-
-        if (!findSchool.getUrl().equals(updateSchool.getUrl())) {
-            duplicatedUrl(updateSchool.getUrl());
-        }
-
-        findSchool.update(updateSchool.getName(), updateSchool.getCampus(), updateSchool.getType(), updateSchool.getTel(), updateSchool.getAddress(), updateSchool.getCity(), updateSchool.getUrl());
+        findSchool.update(updateSchool.getName(), updateSchool.getType(), updateSchool.getCity());
     }
 
     @Override
@@ -65,23 +49,8 @@ public class SchoolServiceImpl implements SchoolService {
         return schoolId;
     }
 
-    private void duplicatedUrl(String url) {
-        Optional<School> findSchool = schoolRepository.findByUrl(url);
-        validation(findSchool, "이미 등록된 홈페이지 주소입니다");
-    }
-
-    private void duplicatedAddress(String address) {
-        Optional<School> findSchool = schoolRepository.findByAddress(address);
-        validation(findSchool, "이미 등록된 주소입니다");
-    }
-
-    private void duplicatedTel(String tel) {
-        Optional<School> findSchool = schoolRepository.findByTel(tel);
-        validation(findSchool, "이미 등록된 연락처입니다");
-    }
-
-    private void duplicatedSchool(String schoolName, String campus) {
-        Optional<School> findSchool = schoolRepository.findByNameAndCampus(schoolName, campus);
+    private void duplicatedSchool(String schoolName) {
+        Optional<School> findSchool = schoolRepository.findByName(schoolName);
         validation(findSchool, "이미 등록된 학교입니다");
     }
 

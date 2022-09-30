@@ -10,23 +10,15 @@ public class SchoolResponse {
 
     private Long id;
     private String name;
-    private String campus;
     private SchoolType type;
-    private String tel;
-    private String address;
     private City city;
-    private String url;
     private int count;
 
     public SchoolResponse(School school) {
         this.id = school.getId();
         this.name = school.getName();
-        this.campus = school.getCampus();
         this.type = school.getType();
-        this.tel = school.getTel();
-        this.address = school.getAddress();
         this.city = school.getCity();
-        this.url = school.getUrl();
         this.count = school.getCount();
     }
 }

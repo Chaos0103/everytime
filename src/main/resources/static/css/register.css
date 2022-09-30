@@ -131,7 +131,7 @@ textarea {
 }
 
 #container div.input select {
-    background-image: url("/images/register.input.select.png")
+    background-image: url("/images/register/register.input.select.png")
 }
 
 #container div.input input[type=email],#container div.input input[type=password],#container div.input input[type=text] {
@@ -143,7 +143,7 @@ textarea {
 }
 
 #container div.input input[type=email].search,#container div.input input[type=password].search,#container div.input input[type=text].search {
-    background-image: url("/images/register.input.search.png")
+    background-image: url("/images/register/register.input.search.png")
 }
 
 #container div.input input[type=email].caution,#container div.input input[type=password].caution,#container div.input input[type=text].caution {

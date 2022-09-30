@@ -6,16 +6,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="/static/css/register.css" th:href="@{/css/register.css}" rel="stylesheet">
-    <link href="/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon" type="image/x-icon">
 
-    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
-    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
-    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>
-    <script type="text/javascript" src="/static/js/register.index.js" th:src="@{/js/register.index.js}"></script>
+    <link type="text/css" href="/static/css/register.css" th:href="@{/css/register.css}" rel="stylesheet">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
+
+    <script type="text/javascript" src="/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
+    <script type="text/javascript" src="/js/common.js" th:src="@{/js/common.js}"></script>
+    <script type="text/javascript" src="/js/register/register.index.js" th:src="@{/js/register/register.index.js}"></script>
 </head>
 <body>
-<form id="container" method="post" action="/register/agreement">
+<form id="container" method="post" action="/register/agreement" th:action="@{/register/agreement}">
     <h2>에브리타임 회원가입</h2>
     <p class="description">에브리타임 계정으로 <strong>캠퍼스픽, 에브리타임</strong> 등<br>다양한 대학생 서비스를 모두 이용하실 수 있습니다.</p>
     <h2>학교 선택</h2>

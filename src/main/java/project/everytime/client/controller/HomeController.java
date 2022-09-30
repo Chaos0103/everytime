@@ -25,7 +25,7 @@ public class HomeController {
         log.debug("학교 목록 호출");
         List<School> schoolList = schoolQueryService.findSchoolList("");
         List<SchoolListResponse> schoolListResponses = schoolList.stream()
-                .map(school -> new SchoolListResponse(school.getId(), school.getName(), school.getCount()))
+                .map(school -> new SchoolListResponse(school.getId(), school.getName().replace("대학교", "대").replace("캠퍼스", "캠"), school.getCount()))
                 .toList();
         model.addAttribute("schoolList", schoolListResponses);
         return "index";

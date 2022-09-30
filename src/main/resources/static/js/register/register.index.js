@@ -10,17 +10,17 @@ $().ready(function () {
     var _fn = {
         init: function () {
             $.ajax({
-                url: _apiServerUrl + '/find/school/campus/list',
+                url: '/find/school/campus/list',
                 xhrFields: {withCredentials: true},
                 type: 'POST',
                 success: function (response) {
-                    _set.campuses = $(response).find('campus').map(function () {
+                    _set.campuses = response.map(function (data) {
                         return {
-                            id: $(this).attr('id'),
-                            name: $(this).attr('name'),
-                            lowerCaseName: $(this).attr('name').toLowerCase()
+                            id: data.id,
+                            name: data.name,
+                            lowerCaseName: data.name.toLowerCase()
                         };
-                    }).get();
+                    });
                 }
             });
             $campusName.on('keyup', function (event) {
@@ -44,7 +44,6 @@ $().ready(function () {
                 return campus.lowerCaseName.match(keywordForRegExp);
             });
             if (keyword.length > 1 && matchedCampuses.length === 0) {
-                // 자모음 결합 문제로 인해 마지막 한 글자 제외
                 keywordForRegExp = new RegExp(lowerCaseKeyword.slice(0, -1));
                 matchedCampuses = _.filter(_set.campuses, function (campus) {
                     return campus.lowerCaseName.match(keywordForRegExp);

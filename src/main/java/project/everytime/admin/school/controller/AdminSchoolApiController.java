@@ -35,14 +35,14 @@ public class AdminSchoolApiController {
 
     @PostMapping
     public void addSchool(@RequestBody SchoolAddRequest request) {
-        School school = new School(request.getName(), request.getCampus(), request.getType(), request.getTel(), request.getAddress(), request.getCity(), request.getUrl());
+        School school = new School(request.getName(), request.getType(), request.getCity());
         Long schoolId = schoolService.addSchool(school);
     }
 
     // TODO: 2022/09/29 PatchMapping 확인하기
     @PatchMapping("/{schoolId}")
     public void editSchool(@RequestBody SchoolEditRequest request, @PathVariable Long schoolId) {
-        SchoolEdit schoolEdit = new SchoolEdit(request.getName(), request.getCampus(), request.getType(), request.getTel(), request.getAddress(), request.getCity(), request.getUrl());
+        SchoolEdit schoolEdit = new SchoolEdit(request.getName(), request.getType(), request.getTel(), request.getAddress(), request.getCity(), request.getUrl());
         schoolService.editSchool(schoolId, schoolEdit);
     }
 
@@ -57,7 +57,6 @@ public class AdminSchoolApiController {
     @AllArgsConstructor
     static class SchoolAddRequest {
         private String name;
-        private String campus;
         private SchoolType type;
         private String tel;
         private String address;
@@ -70,7 +69,6 @@ public class AdminSchoolApiController {
     @AllArgsConstructor
     static class SchoolEditRequest {
         private String name;
-        private String campus;
         private SchoolType type;
         private String tel;
         private String address;

@@ -27,7 +27,7 @@ class SchoolServiceTest {
     @DisplayName("학교등록")
     void addSchool() {
         //given
-        School school = new School("세종대학교", "본캠", SchoolType.UNIVERSITY, "02-3408-3114", "서울특별시 광진구 능동로 209", City.SEOUL, "http://www.sejong.ac.kr/");
+        School school = new School("세종대학교", SchoolType.UNIVERSITY, City.SEOUL);
         //when
         Long schoolId = schoolService.addSchool(school);
         //then
@@ -39,7 +39,7 @@ class SchoolServiceTest {
     void duplicatedSchool() {
         //given
         createSchool();
-        School school = new School("세종대학교", "본캠", SchoolType.UNIVERSITY, "02-1234-5678", "서울특별시 광진구 능동로 111", City.SEOUL, "url");
+        School school = new School("세종대학교", SchoolType.UNIVERSITY, City.SEOUL);
 
         //when
         DuplicateException exception = assertThrows(DuplicateException.class, () -> schoolService.addSchool(school));
@@ -53,7 +53,7 @@ class SchoolServiceTest {
     void duplicatedTel() {
         //given
         createSchool();
-        School school = new School("건국대학교", "본캠", SchoolType.UNIVERSITY, "02-3408-3114", "서울특별시 광진구 능동로 111", City.SEOUL, "url");
+        School school = new School("건국대학교", SchoolType.UNIVERSITY, City.SEOUL);
 
         //when
         DuplicateException exception = assertThrows(DuplicateException.class, () -> schoolService.addSchool(school));
@@ -67,7 +67,7 @@ class SchoolServiceTest {
     void duplicatedAddress() {
         //given
         createSchool();
-        School school = new School("건국대학교", "본캠", SchoolType.UNIVERSITY, "02-1234-5678", "서울특별시 광진구 능동로 209", City.SEOUL, "url");
+        School school = new School("건국대학교", SchoolType.UNIVERSITY, City.SEOUL);
 
         //when
         DuplicateException exception = assertThrows(DuplicateException.class, () -> schoolService.addSchool(school));
@@ -81,7 +81,7 @@ class SchoolServiceTest {
     void duplicatedUrl() {
         //given
         createSchool();
-        School school = new School("건국대학교", "본캠", SchoolType.UNIVERSITY, "02-1234-5678", "서울특별시 광진구 능동로 100", City.SEOUL, "http://www.sejong.ac.kr/");
+        School school = new School("건국대학교", SchoolType.UNIVERSITY, City.SEOUL);
 
         //when
         DuplicateException exception = assertThrows(DuplicateException.class, () -> schoolService.addSchool(school));
@@ -105,7 +105,7 @@ class SchoolServiceTest {
     }
 
     private School createSchool() {
-        School school = new School("세종대학교", "본캠", SchoolType.UNIVERSITY, "02-3408-3114", "서울특별시 광진구 능동로 209", City.SEOUL, "http://www.sejong.ac.kr/");
+        School school = new School("세종대학교", SchoolType.UNIVERSITY, City.SEOUL);
         return schoolRepository.save(school);
     }
 }

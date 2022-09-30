@@ -9,7 +9,6 @@ import project.everytime.admin.school.SchoolType;
 @AllArgsConstructor
 public class SchoolEdit {
     private String name;
-    private String campus;
     private SchoolType type;
     private String tel;
     private String address;

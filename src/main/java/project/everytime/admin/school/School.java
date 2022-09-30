@@ -18,42 +18,26 @@ public class School extends TimeBaseEntity {
 
     @Column(nullable = false, length = 50)
     private String name;
-    @Column(nullable = false, length = 10)
-    private String campus;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SchoolType type;
-    @Column(nullable = false, unique = true, length = 13)
-    private String tel;
-    @Column(unique = true, nullable = false)
-    private String address;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private City city;
-    @Column(nullable = false, unique = true)
-    private String url;
     @Column(nullable = false)
     private int count;
 
-    public School(String name, String campus, SchoolType type, String tel, String address, City city, String url) {
+    public School(String name, SchoolType type, City city) {
         this.name = name;
-        this.campus = campus;
         this.type = type;
-        this.tel = tel;
-        this.address = address;
         this.city = city;
-        this.url = url;
     }
 
     //==비즈니스 로직==//
-    public void update(String name, String campus, SchoolType type, String tel, String address, City city, String url) {
+    public void update(String name, SchoolType type, City city) {
         this.name = name;
-        this.campus = campus;
         this.type = type;
-        this.tel = tel;
-        this.address = address;
         this.city = city;
-        this.url = url;
     }
 
     public void addCount() {
