@@ -10,6 +10,7 @@ import project.everytime.client.user.User;
 public class UserResponse {
 
     private Long id;
+    private Long schoolId;
     private String loginId;
     private String username;
     private String birth;
@@ -25,6 +26,7 @@ public class UserResponse {
 
     public UserResponse(User user) {
         this.id = user.getId();
+        this.schoolId = user.getSchool().getId();
         this.loginId = user.getLoginId();
         this.username = user.getUsername();
         this.birth = user.getBirth();

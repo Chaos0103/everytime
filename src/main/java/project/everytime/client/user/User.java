@@ -51,7 +51,6 @@ public class User extends TimeBaseEntity {
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
-    @Builder
     public User(School school, String loginId, String password, String username, String birth, String phone, String nickname, String yearOfAdmission, String sex, String email, boolean adInfoSendAgree) {
         this.school = school;
         this.loginId = loginId;
@@ -68,6 +67,7 @@ public class User extends TimeBaseEntity {
         this.authType = AuthType.NONE;
         this.adInfoSendAgree = adInfoSendAgree;
         this.status = AccountStatus.ACTIVE;
+        school.addCount();
     }
 
     //== 비즈니스 로직==//

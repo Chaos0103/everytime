@@ -1,19 +1,19 @@
 $().ready(function () {
-    var $container = $('#container');
-    var _set = {};
-    var _fn = {
+    const $container = $('#container');
+    const _set = {};
+    const _fn = {
         initiate: function () {
-            var $form = $container.find('form');
-            var $userid = $form.find('input[name="loginId"]');
-            var $password = $form.find('input[name="password"]');
-            $userid.placeholder();
+            const $form = $container.find('form');
+            const $loginId = $form.find('input[name="loginId"]');
+            const $password = $form.find('input[name="password"]');
+            $loginId.placeholder();
             $form.on('submit', function () {
                 if (_set.isSubmitted === true) {
                     return false;
                 }
-                if (!$userid.val().replace(/ /gi, '')) {
+                if (!$loginId.val().replace(/ /gi, '')) {
                     alert('아이디를 입력하세요!');
-                    $userid.focus();
+                    $loginId.focus();
                     return false;
                 }
                 if (!$password.val()) {
