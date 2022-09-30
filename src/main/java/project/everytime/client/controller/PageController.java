@@ -16,4 +16,9 @@ public class PageController {
     public String serviceAgreement() {
         return "page/serviceagreement";
     }
+
+    @GetMapping("/privacy")
+    public String privacy() {
+        return "page/privacy";
+    }
 }

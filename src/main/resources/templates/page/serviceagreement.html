@@ -29,19 +29,19 @@
             <p><span class="name multiple">에브리타임</span><span class="subname">세종대</span></p>
         </div>
         <div id="account">
-            <a href="/static/html/message.html" title="쪽지함" class="icon message">쪽지함</a>
-            <a href="#" title="내 정보" class="icon my">내 정보</a>
+            <a href="/templates/message.html" th:href="@{/message}" title="쪽지함" class="icon message">쪽지함</a>
+            <a href="/templates/my.html" th:href="@{/my}" title="내 정보" class="icon my">내 정보</a>
             <input type="hidden" id="userUserid" value="lyt1228">
             <input type="hidden" id="userSchool" value="36">
             <input type="hidden" id="userCampus" value="60">
         </div>
         <ul id="menu">
-            <li><a href="/static/html/main.html">게시판</a></li>
-            <li><a href="#">시간표</a></li>
-            <li><a href="/static/html/lecture.html">강의실</a></li>
-            <li><a href="#">학점계산기</a></li>
-            <li><a href="/static/html/friend.html">친구</a></li>
-            <li><a href="/static/html/book/book.html">책방</a></li>
+            <li><a href="/templates/main.html" th:href="@{/}">게시판</a></li>
+            <li><a href="/templates/timetable.html" th:href="@{/timetable}">시간표</a></li>
+            <li><a href="/templates/lecture.html" th:href="@{/lecture}">강의실</a></li>
+            <li><a href="/templates/calculator.html" th:href="@{/calculator}">학점계산기</a></li>
+            <li><a href="/templates/friend.html" th:href="@{/friend}">친구</a></li>
+            <li><a href="/templates/book.html" th:href="@{/book}">책방</a></li>
         </ul>
     </div>
 </nav>
@@ -254,9 +254,9 @@
 </div>
 <footer>
     <a href="/templates/page/serviceagreement.html" th:href="@{/page/serviceagreement}">이용약관</a>
-    <a href="#" class="privacy">개인정보처리방침</a>
-    <a href="#">커뮤니티이용규칙</a>
-    <a href="#">문의하기</a>
+    <a href="/templates/page/privacy.html" th:href="@{/page/privacy}" class="privacy">개인정보처리방침</a>
+    <a href="/templates/page/rules" th:href="@{/page/rules}">커뮤니티이용규칙</a>
+    <a href="/templates/page/faq" th:href="@{/page/faq}">문의하기</a>
     <a href="/templates/index.html" th:href="@{/}" class="copyright">&copy; 에브리타임</a>
 </footer>
 </body>
