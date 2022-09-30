@@ -31,7 +31,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .selectFrom(user)
                 .join(user.school, school).fetchJoin()
                 .where(
-                        schoolNameEq(condition.getSchoolName()),
+                        nameEq(condition.getName()),
                         usernameEq(condition.getUsername())
                 )
                 .offset(pageable.getOffset())
@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .selectFrom(user)
                 .join(user.school, school).fetchJoin()
                 .where(
-                        schoolNameEq(condition.getSchoolName()),
+                        nameEq(condition.getName()),
                         usernameEq(condition.getUsername())
                 )
                 .fetch().size();
@@ -54,8 +54,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         return new PageImpl<>(content, pageable, count);
     }
 
-    private BooleanExpression schoolNameEq(String schoolName) {
-        return hasText(schoolName) ? user.school.schoolName.eq(schoolName) : null;
+    private BooleanExpression nameEq(String name) {
+        return hasText(name) ? user.school.name.eq(name) : null;
     }
 
     private BooleanExpression usernameEq(String username) {

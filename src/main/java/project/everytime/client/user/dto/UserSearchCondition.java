@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class UserSearchCondition {
 
-    private String schoolName;
+    private String name;
     private String username;
 }

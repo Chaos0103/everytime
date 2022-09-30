@@ -9,7 +9,7 @@
 
     <link type="text/css" href="/static/css/about/fonts.css" th:href="@{/css/about/fonts.css}" rel="stylesheet">
     <link type="text/css" href="/static/css/about/styles.css" th:href="@{/css/about/styles.css}" rel="stylesheet">
-    <link href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon" type="image/x-icon">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
 
     <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
     <script type="text/javascript" src="/static/js/about.js" th:src="@{/js/about.js}"></script>
@@ -19,9 +19,9 @@
     <div class="login">
         <a href="/templates/index.html" th:href="@{/}" class="logo"><img src="/static/images/index/logo.png" th:src="@{/images/index/logo.png}" alt="에브리타임"></a>
         <a href="/templates/common/login.html" th:href="@{/login}" class="button login">로그인</a>
-        <a href="/register" th:href="@{/register}" class="button register">에브리타임 회원가입</a>
+        <a href="/templates/common/register" th:href="@{/register}" class="button register">에브리타임 회원가입</a>
         <p class="find">
-            <a href="/forgot" th:href="@{/forgot}">아이디/비밀번호 찾기</a>
+            <a href="/templates/common/forgot" th:href="@{/forgot}">아이디/비밀번호 찾기</a>
         </p>
         <hr>
     </div>
@@ -31,7 +31,7 @@
     </form>
     <div class="campuslist">
         <th:block th:each="school : ${schoolList}">
-            <a href="#"><span class="name" th:text="${school.schoolName}">경희대</span><span class="count" th:text="${school.count}">47,956명</span></a>
+            <a href="#"><span class="name" th:text="${school.name}">경희대</span><span class="count" th:text="${school.count}">47,956명</span></a>
         </th:block>
     </div>
 </aside>
@@ -106,10 +106,10 @@
 </section>
 <section class="footer white">
     <ul class="links">
-        <li><a href="#">이용약관</a></li>
-        <li class="privacy"><a href="#">개인정보처리방침</a></li>
-        <li><a href="#">문의하기</a></li>
-        <li class="copyright"><a href="/templates/index.html">&copy; 에브리타임</a></li>
+        <li><a href="/templates/page/serviceagreement" th:href="@{/page/serviceagreement}">이용약관</a></li>
+        <li class="privacy"><a href="/templates/page/privacy" th:href="@{/page/privacy}">개인정보처리방침</a></li>
+        <li><a href="/templates/page/faq" th:href="@{/page/faq}">문의하기</a></li>
+        <li class="copyright"><a href="/templates/index.html" th:href="@{/}">&copy; 에브리타임</a></li>
     </ul>
 </section>
 </body>

@@ -25,7 +25,7 @@ public class HomeController {
         log.debug("학교 목록 호출");
         List<School> schoolList = schoolQueryService.findSchoolList("");
         List<SchoolListResponse> schoolListResponses = schoolList.stream()
-                .map(school -> new SchoolListResponse(school.getId(), school.getSchoolName(), school.getCount()))
+                .map(school -> new SchoolListResponse(school.getId(), school.getName(), school.getCount()))
                 .toList();
         model.addAttribute("schoolList", schoolListResponses);
         return "index";
@@ -36,7 +36,7 @@ public class HomeController {
     @AllArgsConstructor
     static class SchoolListResponse {
         private Long id;
-        private String schoolName;
+        private String name;
         private int count;
     }
 }

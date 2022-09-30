@@ -35,9 +35,9 @@ public class SchoolServiceImpl implements SchoolService {
             throw new IllegalArgumentException();
         }
 
-        if (!findSchool.getName().equals(updateSchool.getSchoolName())
+        if (!findSchool.getName().equals(updateSchool.getName())
                 || !findSchool.getCampus().equals(updateSchool.getCampus())) {
-            duplicatedSchool(updateSchool.getSchoolName(), updateSchool.getCampus());
+            duplicatedSchool(updateSchool.getName(), updateSchool.getCampus());
         }
 
         if (!findSchool.getTel().equals(updateSchool.getTel())) {
@@ -52,7 +52,7 @@ public class SchoolServiceImpl implements SchoolService {
             duplicatedUrl(updateSchool.getUrl());
         }
 
-        findSchool.update(updateSchool.getSchoolName(), updateSchool.getCampus(), updateSchool.getType(), updateSchool.getTel(), updateSchool.getAddress(), updateSchool.getCity(), updateSchool.getUrl());
+        findSchool.update(updateSchool.getName(), updateSchool.getCampus(), updateSchool.getType(), updateSchool.getTel(), updateSchool.getAddress(), updateSchool.getCity(), updateSchool.getUrl());
     }
 
     @Override
