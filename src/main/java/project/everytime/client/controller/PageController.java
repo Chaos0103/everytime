@@ -21,4 +21,9 @@ public class PageController {
     public String privacy() {
         return "page/privacy";
     }
+
+    @GetMapping("/rules")
+    public String rules() {
+        return "page/rules";
+    }
 }
