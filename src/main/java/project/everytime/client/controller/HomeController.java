@@ -35,6 +35,7 @@ public class HomeController {
             return "index";
         }
 
+        model.addAttribute("loginUser", loginUser);
         return "main";
     }
 
