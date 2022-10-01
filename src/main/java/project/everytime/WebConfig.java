@@ -9,7 +9,7 @@ import project.everytime.login.LoginCheckInterceptor;
 
 import java.util.List;
 
-//@Configuration
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -21,7 +21,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns();
+                .addPathPatterns("/a");
+//                .excludePathPatterns("/css/**", "/js/**", "/images/**", "/icon/**", "/font/**", "/file/**",
+//                        "/", "/login/**", "/register/**", "/find/**");
     }
 }

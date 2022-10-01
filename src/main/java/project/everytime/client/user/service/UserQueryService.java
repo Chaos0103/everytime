@@ -3,6 +3,7 @@ package project.everytime.client.user.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import project.everytime.client.user.dto.LoginUser;
 import project.everytime.client.user.dto.UserSearchCondition;
 import project.everytime.client.user.dto.UserResponse;
 
@@ -25,5 +26,5 @@ public interface UserQueryService {
     List<UserResponse> findNonAuth();
 
     //로그인을 위한 조회
-    UserResponse login(String loginId, String password);
+    LoginUser login(String loginId, String password);
 }

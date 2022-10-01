@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import project.everytime.client.user.dto.UserResponse;
+import project.everytime.client.user.dto.LoginUser;
 import project.everytime.client.user.service.UserQueryService;
 import project.everytime.exception.NoSuchException;
 
@@ -44,7 +44,7 @@ public class LoginController {
         }
 
         try {
-            UserResponse loginUser = userQueryService.login(form.getLoginId(), form.getPassword());
+            LoginUser loginUser = userQueryService.login(form.getLoginId(), form.getPassword());
             HttpSession session = servletRequest.getSession();
             session.setAttribute("loginUser", loginUser);
             return "redirect:" + redirectURL;
