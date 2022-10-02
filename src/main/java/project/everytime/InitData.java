@@ -5,6 +5,10 @@ import org.springframework.stereotype.Component;
 import project.everytime.admin.school.City;
 import project.everytime.admin.school.School;
 import project.everytime.admin.school.repository.SchoolRepository;
+import project.everytime.client.board.Board;
+import project.everytime.client.board.BoardCategory;
+import project.everytime.client.board.BoardType;
+import project.everytime.client.board.repository.BoardRepository;
 import project.everytime.client.user.User;
 import project.everytime.client.user.repository.UserRepository;
 
@@ -21,6 +25,7 @@ public class InitData {
 
     private final SchoolRepository schoolRepository;
     private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
 
     @PostConstruct
     public void init() {
@@ -64,6 +69,9 @@ public class InitData {
         School school = schoolRepository.findByName("세종대학교").get();
         User user = new User(school, "id", "pw!", "김밍깅", "20010101", "010-1234-5678", "밍술이", "2020", "F", "soju@soju.com", true);
         userRepository.save(user);
+
+        Board board = new Board(school, BoardCategory.BASIC, "자유게시판", null, BoardType.LIST, 21, true, true);
+        boardRepository.save(board);
     }
 
 }
