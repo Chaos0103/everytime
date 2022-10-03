@@ -2,12 +2,13 @@ package project.everytime;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import project.everytime.admin.school.City;
 import project.everytime.admin.school.School;
 import project.everytime.admin.school.repository.SchoolRepository;
+import project.everytime.client.board.Article;
 import project.everytime.client.board.Board;
 import project.everytime.client.board.BoardCategory;
 import project.everytime.client.board.BoardType;
+import project.everytime.client.board.repository.ArticleRepository;
 import project.everytime.client.board.repository.BoardRepository;
 import project.everytime.client.user.User;
 import project.everytime.client.user.repository.UserRepository;
@@ -26,6 +27,7 @@ public class InitData {
     private final SchoolRepository schoolRepository;
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
+    private final ArticleRepository articleRepository;
 
     @PostConstruct
     public void init() {
@@ -70,8 +72,31 @@ public class InitData {
         User user = new User(school, "id", "pw!", "김밍깅", "20010101", "010-1234-5678", "밍술이", "2020", "F", "soju@soju.com", true);
         userRepository.save(user);
 
-        Board board = new Board(school, BoardCategory.BASIC, "자유게시판", null, BoardType.LIST, 21, true, true);
-        boardRepository.save(board);
+        List<Board> boards = new ArrayList<>();
+        boards.add(new Board(school, BoardCategory.BASIC, "자유게시판", null, BoardType.LIST, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "비밀게시판", null, BoardType.ARTICLE, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "졸업생게시판", null, BoardType.ARTICLE, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "새내기게시판", null, BoardType.ARTICLE, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "시사·이슈", null, BoardType.LIST, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "장터게시판", null, BoardType.LIST, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "정보게시판", null, BoardType.LIST, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "홍보게시판", null, BoardType.LIST, 21, true, true, false));
+        boards.add(new Board(school, BoardCategory.BASIC, "동아리·학회", null, BoardType.LIST, 21, true, true, false));
+        boardRepository.saveAll(boards);
+
+        Board board1 = boardRepository.findById(36L).get();
+        Article article1 = new Article(user, board1, "술 마시고 싶다", "밍술이 등장!", 0, 0, 0, true, false);
+        Board board2 = boardRepository.findById(37L).get();
+        Article article2 = new Article(user, board2, "술 마시고 싶다", "밍술이 등장!", 0, 0, 0, true, false);
+        for (int i = 0; i < 9; i++) {
+            article2.addPosvote();
+        }
+        Article article3 = new Article(user, board2, "나는 말하는 감자다...", "코코박사님께 감사 인사를 드립니다ㅜㅜ", 0, 0, 0, true, false);
+        articleRepository.save(article1);
+        articleRepository.save(article2);
+        articleRepository.save(article3);
+        article2.addPosvote();
+        articleRepository.save(article2);
     }
 
 }

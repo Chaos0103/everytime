@@ -21,24 +21,41 @@ $().ready(function () {
                 campus_id: $('#communityCampusId').val()
             };
             $.ajax({
-                url: _apiServerUrl + '/find/community/web',
-                xhrFields: {withCredentials: true},
+                url: '/find/community/web',
+                dataType: "json",
                 data: condition,
                 type: 'POST',
                 success: function (data) {
-                    var responseCode;
-                    if (!$(data).find('response').children().length) {
-                        responseCode = $(data).find('response').text();
-                    }
-                    if (responseCode === '0') {
-                        callback();
-                    } else {
-                        callback(data);
-                    }
+                    callback(data);
                 }
             });
         },
         createHome: function (data) {
+            for (let i = 0; i < data.length; i++) {
+                const boardType = data[i].type;
+                const $card = $('<div></div>').addClass('card');
+                const $board = $('<div></div>').addClass('board').appendTo($card);
+                const $h3 = $('<h3></h3>').appendTo($board);
+                $('<a></a>').attr('href', '/boards/' + data[i].id).html(data[i].name).appendTo($h3);
+                if (data[i].needLogin) {
+                    var $needauth = $('<div></div>').addClass('needauth').appendTo($board);
+                    $('<p></p>').html('로그인을 한 학생들만<br>이용할 수 있어요!').appendTo($needauth);
+                    $('<a></a>').addClass('button').attr('href', '/login').text('로그인').appendTo($needauth);
+                } else {
+                    const articles = data[i].articles;
+                    for (let j = 0; j < articles.length; j++) {
+                        articles[j].boardId = data[i].id;
+                        if (boardType === "LIST") {
+                            _gfn.createListItem($board, articles[j]);
+                        } else if (boardType === "PHOTO") {
+                            _gfn.createPhotoItem($board, articles[j]);
+                        } else {
+                            _gfn.createArticleItem($board, articles[j]);
+                        }
+                    }
+                }
+                $card.appendTo($main);
+            }
             var $response = $(data).find('response');
             $response.find('board').each(function () {
                 var $boardData = $(this);

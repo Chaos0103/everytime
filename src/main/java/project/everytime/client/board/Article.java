@@ -8,6 +8,7 @@ import project.everytime.client.UploadFile;
 import project.everytime.client.user.User;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class Article extends TimeBaseEntity {
     private int scrapCount;
     private boolean anonymous;
     private boolean question;
+    @Column(insertable = false)
+    private LocalDateTime hotArticleCreatedTime;
 
     @OneToMany(mappedBy = "article", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<ArticleImage> images = new ArrayList<>();
@@ -84,6 +87,9 @@ public class Article extends TimeBaseEntity {
 
     public void addPosvote() {
         this.posvote++;
+        if (this.posvote == 10) {
+            this.hotArticleCreatedTime = LocalDateTime.now();
+        }
     }
 
     public void addComment() {
