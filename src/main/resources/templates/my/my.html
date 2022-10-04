@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>내 정보 - 에브리타임</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" href="/static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/common.partial.css" th:href="@{/css/common.partial.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/container.community.css" th:href="@{/css/container.community.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/my/my.css" th:href="@{/css/my/my.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/page/page.common.css" th:href="@{/css/page/page.common.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/page/page.common.index.css" th:href="@{/css/page/page.common.index.css}" rel="stylesheet">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
+
+<!--    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>-->
+<!--    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>-->
+<!--    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>-->
+<!--    <script type="text/javascript" src="/static/js/community.side.js" th:src="@{/js/community.side.js}"></script>-->
+<!--    <script type="text/javascript" src="/static/js/community.index.js" th:src="@{/js/community.index.js}"></script>-->
+</head>
+<body>
+<nav>
+    <div class="wrap">
+        <div id="logo">
+            <a href="/" th:href="@{/}"><img src="/images/common/nav.logo.png" th:src="@{/images/common/nav.logo.png}" alt="nav.logo.png"></a>
+            <p><span class="name multiple">에브리타임</span><span class="subname">세종대</span></p>
+        </div>
+        <div id="account">
+            <a href="/message" th:href="@{/message}" title="쪽지함" class="icon message">쪽지함</a>
+            <a href="/my" th:href="@{/my}" title="내 정보" class="icon my">내 정보</a>
+            <!--            <input type="hidden" id="userUserid" value="lyt1228">-->
+            <!--            <input type="hidden" id="userSchool" value="36">-->
+            <!--            <input type="hidden" id="userCampus" value="60">-->
+        </div>
+        <ul id="menu">
+            <li><a href="/" th:href="@{/}">게시판</a></li>
+            <li><a href="/timetable" th:href="@{/timetable}">시간표</a></li>
+            <li><a href="/lecture" th:href="@{/lecture}">강의실</a></li>
+            <li><a href="/calculator" th:href="@{/calculator}">학점계산기</a></li>
+            <li><a href="/friend" th:href="@{/friend}">친구</a></li>
+            <li><a href="/book" th:href="@{/book}">책방</a></li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <div class="container">
+        <section>
+            <div class="title">
+                <h1>내 정보</h1>
+                <a href="/logout" th:href="@{/logout}" class="logout">로그아웃</a>
+            </div>
+            <div class="profile">
+                <img src="/static/images/0.png" th:src="@{/images/0.png}" alt="0.png">
+                <h3 th:text="${loginUser.loginId}">loginId</h3>
+                <p><span th:text="${loginUser.username}">username</span> / <span th:text="${loginUser.nickname}">nickname</span></p>
+                <p><span>세종대 </span><span th:text="|${loginUser.yearOfAdmission.substring(2)}학번|">n학번</span></p>
+            </div>
+        </section>
+        <section>
+            <h2>계정</h2>
+            <a href="/templates/my/auth.html" th:href="@{/my/auth}" class="item">학교 인증</a>
+            <a href="/templates/my/password.html" th:href="@{/my/password}" class="item">비밀번호 변경</a>
+            <a href="/templates/my/email.html" th:href="@{/my/email}" class="item">이메일 변경</a>
+        </section>
+        <section>
+            <h2>커뮤니티</h2>
+            <a href="/templates/my/nickname.html" th:href="@{/my/nickname}" class="item">닉네임 설정</a>
+            <a href="/templates/my/banlist.html" th:href="@{/my/banlist}" class="item">이용 제한 내역</a>
+            <a href="/templates/my/boardlist.html" th:href="@{/my/boardlist}" class="item">게시판 관리</a>
+            <a href="/templates/page/rules.html" th:href="@{/page/rules}" class="item">커뮤니티 이용규칙</a>
+        </section>
+        <section>
+            <h2>이용 안내</h2>
+            <a href="/templates/page/faq.html" th:href="@{/page/faq}" class="item">문의하기</a>
+            <a href="/templates/notice.html" th:href="@{/page/notice}" class="item">공지사항</a>
+            <a href="/templates/page/serviceagreement.html" th:href="@{/page/serviceagreement}" class="item">서비스 이용약관</a>
+            <a href="/templates/page/privacy.html" th:href="@{/page/privacy}" class="item">개인정보 처리방침</a>
+        </section>
+        <section>
+            <h2>기타</h2>
+            <a href="/templates/my/adagreement.html" th:href="@{/my/adagreement}" class="item">정보 동의 설정</a>
+            <a href="/templates/my/withdrawal.html" th:href="@{/my/withdrawal}" class="item">회원 탈퇴</a>
+        </section>
+    </div>
+</div>
+<footer>
+    <a href="/templates/page/serviceagreement.html" th:href="@{/page/serviceagreement}">이용약관</a>
+    <a href="/templates/page/privacy.html" th:href="@{/page/privacy}" class="privacy">개인정보처리방침</a>
+    <a href="/templates/page/rules.html" th:href="@{/page/rules}">커뮤니티이용규칙</a>
+    <a href="/templates/page/faq.html" th:href="@{/page/faq}">문의하기</a>
+    <a href="/templates/main.html" th:href="@{/}" class="copyright">&copy; 에브리타임</a>
+</footer>
+</body>
+</html>

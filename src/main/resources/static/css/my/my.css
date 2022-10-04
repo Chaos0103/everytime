@@ -1,0 +1,62 @@
+body.appwebview div.container {
+    padding-top: 0;
+
+}
+@media only screen and (min-width: 780px){
+    div.container {
+        padding-top: 80px;
+    }
+}
+@media only screen and (max-width: 779px){
+    div.container {
+        padding-top: 56px;
+    }
+}
+div.container section {
+    padding: 12px 0;
+    box-sizing: border-box;
+    border: 1px solid #EDEDED;
+    border-radius: 12px;
+}
+@media only screen and (min-width: 780px){
+    div.container section {
+        margin: 8px auto 0 auto;
+        width: 480px
+    }
+    div.container section:first-of-type {
+        margin-top: 24px;
+    }
+}
+@media only screen and (max-width: 779px){
+    div.container section {
+        margin: 8px 8px 0 8px;
+    }
+    div.container section:first-of-type {
+        margin-top: 0;
+
+    }
+}
+div.container section div.title {
+    display: flex;
+}
+@media only screen and (min-width: 780px){
+    div.container section div.title {
+        padding: 12px 24px;
+    }
+}
+@media only screen and (max-width: 779px){
+    div.container section div.title {
+        padding: 12px 16px;
+    }
+}
+div.container section div.title h1{flex:auto;line-height:30px;color:#292929;font-size:22px;font-weight:bold}
+div.container section div.title a.logout{padding:0 12px;border-radius:15px;line-height:30px;color:#FFFFFF;font-size:12px;font-weight:bold;background-color:#C62917}
+div.container section div.profile{position:relative;padding-left:72px}@media only screen and (min-width: 780px){div.container section div.profile{margin:0 24px 12px 24px}}@media only screen and (max-width: 779px){div.container section div.profile{margin:0 16px 12px 16px}}  div.container section div.profile img{position:absolute;left:0;border-radius:18px;width:56px;height:56px}  div.container section div.profile h3{line-height:20px;color:#292929;font-size:14px;font-weight:bold}
+div.container section div.profile p{
+    line-height:18px;
+    color:#A6A6A6;
+    font-size:12px
+}
+div.container section h2{line-height:26px;color:#292929;font-size:18px;font-weight:bold}
+@media only screen and (min-width: 780px){div.container section h2{padding:12px 24px}}@media only screen and (max-width: 779px){div.container section h2{padding:12px 16px}}  div.container section a.item{display:block;line-height:24px;word-wrap:break-word;color:#292929;font-size:16px}
+@media only screen and (min-width: 780px){div.container section a.item{padding:12px 24px}}@media only screen and (max-width: 779px){div.container section a.item{padding:12px 16px}}
