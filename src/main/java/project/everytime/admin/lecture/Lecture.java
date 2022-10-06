@@ -25,10 +25,18 @@ public class Lecture extends TimeBaseEntity {
     private String name;
     @Column(updatable = false, nullable = false, length = 50)
     private String professor;
+    @Column(nullable = false)
+    private float rate;
 
     public Lecture(School school, String name, String professor) {
         this.school = school;
         this.name = name;
         this.professor = professor;
+        this.rate = 0.0f;
+    }
+
+    //== 비즈니스 로직 ==//
+    public void updateRate(float rate) {
+        this.rate = rate;
     }
 }
