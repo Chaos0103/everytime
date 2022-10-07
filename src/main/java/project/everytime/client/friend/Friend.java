@@ -29,10 +29,17 @@ public class Friend extends TimeBaseEntity {
 
     @Column(name = "friend_name", updatable = false, nullable = false, length = 50)
     private String name;
+    private boolean accept;
 
     public Friend(User user, User target, String name) {
         this.user = user;
         this.target = target;
         this.name = name;
+        this.accept = false;
+    }
+
+    //== 비즈니스 로직 ==//
+    public void friendAccept() {
+        this.accept = true;
     }
 }

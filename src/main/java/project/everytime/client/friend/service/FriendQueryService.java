@@ -1,7 +1,7 @@
 package project.everytime.client.friend.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import project.everytime.client.friend.dto.FriendResponse;
+import project.everytime.client.friend.Friend;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
 public interface FriendQueryService {
 
     //친구 목록 조회
-    List<FriendResponse> findFriends(Long userId);
+    List<Friend> findFriends(Long userId);
 }

@@ -10,36 +10,36 @@
     <link type="text/css" href="/static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet">
     <link type="text/css" href="/static/css/common.partial.css" th:href="@{/css/common.partial.css}" rel="stylesheet">
     <link type="text/css" href="/static/css/container.friend.css" th:href="@{/css/container.friend.css}" rel="stylesheet">
-    <link type="image/x-icon" href="/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
 
-<!--    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>-->
+    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
 <!--    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/friend.index.js" th:src="@{/js/friend.index.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/friend.accept.js" th:src="@{/js/friend.accept.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/friend.find.js" th:src="@{/js/friend.find.js}"></script>-->
+    <script type="text/javascript" src="/static/js/friend/friend.index.js" th:src="@{/js/friend/friend.index.js}"></script>
+    <script type="text/javascript" src="/static/js/friend/friend.accept.js" th:src="@{/js/friend/friend.accept.js}"></script>
+    <script type="text/javascript" src="/static/js/friend/friend.find.js" th:src="@{/js/friend/friend.find.js}"></script>
 </head>
 <body>
 <nav>
     <div class="wrap">
         <div id="logo">
-            <a href="/static/html/main.html" th:href="@{/}"><img src="/images/common/nav.logo.png" th:src="@{/images/common/nav.logo.png}" alt="nav.logo.png"></a>
+            <a href="/" th:href="@{/}"><img src="/images/common/nav.logo.png" th:src="@{/images/common/nav.logo.png}" alt="nav.logo.png"></a>
             <p><span class="name multiple">에브리타임</span><span class="subname">세종대</span></p>
         </div>
         <div id="account">
-            <a href="/message" title="쪽지함" class="icon message">쪽지함</a>
-            <a href="/my" title="내 정보" class="icon my">내 정보</a>
-            <input type="hidden" id="userUserid" value="lyt1228">
-            <input type="hidden" id="userSchool" value="36">
-            <input type="hidden" id="userCampus" value="60">
+            <a href="/message" th:href="@{/message}" title="쪽지함" class="icon message">쪽지함</a>
+            <a href="/my" th:href="@{/my}" title="내 정보" class="icon my">내 정보</a>
+            <!--            <input type="hidden" id="userUserid" value="lyt1228">-->
+            <!--            <input type="hidden" id="userSchool" value="36">-->
+            <!--            <input type="hidden" id="userCampus" value="60">-->
         </div>
         <ul id="menu">
-            <li><a href="/static/html/main.html" th:href="@{/}">게시판</a></li>
-            <li><a href="/timetable">시간표</a></li>
-            <li><a href="/static/html/lecture.html" th:href="@{/lecture}">강의실</a></li>
-            <li><a href="/calculator">학점계산기</a></li>
-            <li class="active"><a href="/friend">친구</a></li>
-            <li><a href="/book">책방</a></li>
+            <li><a href="/" th:href="@{/}">게시판</a></li>
+            <li><a href="/timetable" th:href="@{/timetable}">시간표</a></li>
+            <li><a href="/lecture" th:href="@{/lecture}">강의실</a></li>
+            <li><a href="/calculator" th:href="@{/calculator}">학점계산기</a></li>
+            <li class="active"><a href="/friend" th:href="@{/friends}">친구</a></li>
+            <li><a href="/book" th:href="@{/book}">책방</a></li>
         </ul>
     </div>
 </nav>
@@ -48,30 +48,26 @@
         <input type="text" name="userid" placeholder="아이디 혹은 이메일 검색으로 친구 요청" autocomplete="off">
     </form>
     <div class="friendrequestlist">
-        <a href="#" class="friend">
-            <h3><em>김밍술</em>님이 친구 요청을 보냈습니다.</h3>
-            <ul class="buttons">
-                <li class="accept highlight">수락</li>
-                <li class="reject">거절</li>
-            </ul>
-            <hr>
-        </a>
+<!--        <a href="#" class="friend">-->
+<!--            <h3><em>김밍술</em>님이 친구 요청을 보냈습니다.</h3>-->
+<!--            <ul class="buttons">-->
+<!--                <li class="accept highlight">수락</li>-->
+<!--                <li class="reject">거절</li>-->
+<!--            </ul>-->
+<!--            <hr>-->
+<!--        </a>-->
     </div>
-    <div class="friendlist">
-        <a href="#" class="friend"><h3>김밍술</h3></a>
-        <a href="#" class="friend"><h3>김밍깅</h3></a>
-        <div class="dialog">친구를 추가하면 친구의 시간표를 확인할 수 있어요!</div>
-    </div>
+    <div class="friendlist"></div>
     <hr>
 </div>
 <div id="bottom">
     <ul class="links">
-        <li><a href="/page/serviceagreement">이용약관</a></li>
-        <li class="privacy"><a href="/page/privacy">개인정보처리방침</a></li>
-        <li><a href="/page/rules">커뮤니티이용규칙</a></li>
-        <li><a href="/notice">공지사항</a></li>
-        <li><a href="/page/faq">문의하기</a></li>
-        <li class="copyright"><a href="/">&copy; 에브리타임</a></li>
+        <li><a href="/page/serviceagreement" th:href="@{/page/serviceagreement}">이용약관</a></li>
+        <li class="privacy"><a href="/page/privacy" th:href="@{/page/privacy}">개인정보처리방침</a></li>
+        <li><a href="/page/rules" th:href="@{/page/rules}">커뮤니티이용규칙</a></li>
+        <li><a href="/notice" th:href="@{/notice}">공지사항</a></li>
+        <li><a href="/page/faq" th:href="@{/page/faq}">문의하기</a></li>
+        <li class="copyright"><a href="/" th:href="@{/}">&copy; 에브리타임</a></li>
     </ul>
 </div>
 </body>
