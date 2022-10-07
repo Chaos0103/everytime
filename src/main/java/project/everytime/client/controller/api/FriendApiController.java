@@ -6,12 +6,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.everytime.client.friend.Friend;
 import project.everytime.client.friend.service.FriendQueryService;
 import project.everytime.client.friend.service.FriendService;
 import project.everytime.client.user.dto.LoginUser;
+import project.everytime.exception.BlockedUserException;
+import project.everytime.exception.DuplicateException;
+import project.everytime.exception.NoSuchException;
 import project.everytime.login.Login;
 
 import java.util.ArrayList;
@@ -20,64 +23,77 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/friends")
 public class FriendApiController {
 
     private final FriendService friendService;
     private final FriendQueryService friendQueryService;
 
-    @PostMapping("/find/friend/list")
-    public FriendResponse friendList(@Login LoginUser loginUser) {
+    @PostMapping("/list")
+    public FriendListResponse friendList(@Login LoginUser loginUser) {
         List<Friend> friends = friendQueryService.findFriends(loginUser.getId());
-        FriendResponse response = new FriendResponse();
-        for (Friend friend : friends) {
+
+        FriendListResponse response = new FriendListResponse();
+        friends.forEach(friend -> {
+            FriendDto friendDto = new FriendDto(friend.getId(), friend.getTarget().getId(), friend.getName());
             if (friend.isAccept()) {
-                FriendDto friendDto = new FriendDto(friend.getId(), friend.getTarget().getId(), friend.getName());
                 response.getFriends().add(friendDto);
             } else {
-                FriendRequest request = new FriendRequest(friend.getId(), friend.getTarget().getId(), friend.getName());
-                response.getRequests().add(request);
+                response.getRequests().add(friendDto);
             }
-        }
+        });
+
         return response;
     }
 
-    @PostMapping("/update/friend/request/acceptance")
-    public AcceptRequest accept(@RequestBody AcceptRequest request, @Login LoginUser loginUser) {
+    @PostMapping("/request/accept")
+    public Integer accept(@RequestBody AcceptRequest request, @Login LoginUser loginUser) {
         log.debug("request={}", request);
 
         if (request.getAccept() == 1) {
-            //수락
             friendService.acceptFriend(request.getId(), loginUser.getUsername());
         } else if (request.getAccept() == -1) {
-            //거절
             friendService.rejectFriend(request.getId());
         }
-        return request;
+        return request.getAccept();
     }
 
-    @PostMapping("/save/friend/request")
+    @PostMapping("/request")
     public Integer requestFriend(@RequestBody SearchRequest request, @Login LoginUser loginUser) {
-        //1: 성공, -1: 아이디 잘못, -2: 이미 친구, -3: 이미 요청한 상대,
-        return friendService.requestFriend(loginUser.getId(), request.getData());
+        try {
+            Long friendId = friendService.requestFriend(loginUser.getId(), request.getData());
+            log.debug("friendId = {}", friendId);
+            return 1;
+        } catch (NoSuchException exception) {
+            log.debug(exception.getMessage());
+            return -1;
+        } catch (DuplicateException exception) {
+            log.debug(exception.getMessage());
+            if (exception.getMessage().equals("친구 등록 중복")) {
+                return -2;
+            } else {
+                return -3;
+            }
+        } catch (BlockedUserException exception) {
+            log.debug(exception.getMessage());
+            return -4;
+        }
+    }
+
+    @PostMapping("/remove")
+    public void removeFriend(@Login LoginUser loginUser, @RequestBody RemoveRequest request) {
+        friendService.deleteFriend(loginUser.getId(), request.getId());
     }
 
     @Data
-    static class FriendResponse {
+    static class FriendListResponse {
         private List<FriendDto> friends = new ArrayList<>();
-        private List<FriendRequest> requests = new ArrayList<>();
+        private List<FriendDto> requests = new ArrayList<>();
     }
 
     @Data
     @AllArgsConstructor
     static class FriendDto {
-        private Long id;
-        private Long targetId;
-        private String name;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class FriendRequest {
         private Long id;
         private Long targetId;
         private String name;
@@ -92,5 +108,10 @@ public class FriendApiController {
     @Data
     static class SearchRequest {
         private String data;
+    }
+
+    @Data
+    static class RemoveRequest {
+        private Long id;
     }
 }

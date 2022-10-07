@@ -29,7 +29,7 @@ $().ready(function () {
         },
         ajaxFriendList: function (callback) {
             $.ajax({
-                url: '/find/friend/list',
+                url: '/api/friends/list',
                 type: 'POST',
                 success: function (data) {
                     callback(data);

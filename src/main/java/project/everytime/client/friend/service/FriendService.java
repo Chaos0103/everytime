@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FriendService {
 
     //친구요청
-    Integer requestFriend(Long userId, String data);
+    Long requestFriend(Long userId, String data);
 
     //친구수락
     void acceptFriend(Long friendId, String name);
@@ -15,5 +15,5 @@ public interface FriendService {
     void rejectFriend(Long friendId);
 
     //친구삭제
-    void deleteFriend(Long friendId);
+    void deleteFriend(Long userId, Long targetId);
 }

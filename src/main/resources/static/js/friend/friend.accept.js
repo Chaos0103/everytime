@@ -14,7 +14,7 @@ _gfn = _.extend(_gfn, {
     },
     ajaxAcceptFriendRequest: function (id, isAccept, callback) {
         $.ajax({
-            url: '/update/friend/request/acceptance',
+            url: '/api/friends/request/accept',
             dataType: 'json',
             contentType: 'application/json;charset=utf-8',
             type: 'POST',
@@ -23,7 +23,7 @@ _gfn = _.extend(_gfn, {
                 'accept': isAccept
             }),
             success: function (data) {
-                var returns = Number(data.accept);
+                var returns = Number(data);
                 callback(returns);
             }
         });

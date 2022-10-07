@@ -2,7 +2,7 @@ if (!_gfn) var _gfn = {};
 _gfn = _.extend(_gfn, {
     requestFriend: function (params) {
         $.ajax({
-            url: '/save/friend/request',
+            url: '/api/friends/request',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json;charset=utf-8',
@@ -30,7 +30,7 @@ _gfn = _.extend(_gfn, {
             return false;
         }
         $.ajax({
-            url: '/remove/friend',
+            url: '/api/friends/remove',
             type: 'POST',
             data: {
                 identifier: identifier
