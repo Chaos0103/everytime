@@ -1,8 +1,11 @@
 package project.everytime.client.board.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.everytime.client.board.Article;
+import project.everytime.client.board.dto.ArticleResponse;
 import project.everytime.client.board.repository.ArticleRepository;
 import project.everytime.client.board.service.ArticleQueryService;
 
@@ -28,5 +31,10 @@ public class ArticleQueryServiceImpl implements ArticleQueryService {
     @Override
     public List<Article> hotArticle(Long schoolId) {
         return articleRepository.findHotArticle(schoolId);
+    }
+
+    @Override
+    public Page<ArticleResponse> findMyArticle(Long userId, Pageable pageable) {
+        return articleRepository.findMyArticle(userId, pageable);
     }
 }

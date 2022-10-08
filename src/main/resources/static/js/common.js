@@ -167,17 +167,17 @@ $().ready(function () {
         });
     }
     if ($('#account').is(':has(a.icon.message)')) {
-        $.ajax({
-            url: '/find/messageBox/unreadCount',
-            xhrFields: {withCredentials: true},
-            type: 'POST',
-            success: function (data) {
-                var count = Number($(data).find('response > count').text()) || 0;
-                if (count > 0) {
-                    $('<span></span>').addClass('badge').text(count).appendTo($('#account').find('a.icon.message'));
-                }
-            }
-        });
+        // $.ajax({
+        //     url: '/find/messageBox/unreadCount',
+        //     xhrFields: {withCredentials: true},
+        //     type: 'POST',
+        //     success: function (data) {
+        //         var count = Number($(data).find('response > count').text()) || 0;
+        //         if (count > 0) {
+        //             $('<span></span>').addClass('badge').text(count).appendTo($('#account').find('a.icon.message'));
+        //         }
+        //     }
+        // });
     }
     if (typeof Storage !== 'undefined') {
         var currentpageCache = sessionStorage.getItem('currentpage');

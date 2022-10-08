@@ -1,7 +1,10 @@
 package project.everytime.client.board.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import project.everytime.client.board.Article;
+import project.everytime.client.board.dto.ArticleResponse;
 
 import java.util.List;
 
@@ -15,5 +18,5 @@ public interface ArticleQueryService {
     //hot article
     List<Article> hotArticle(Long schoolId);
 
-    //게시물 단건조회
+    Page<ArticleResponse> findMyArticle(Long userId, Pageable pageable);
 }

@@ -1,9 +1,13 @@
 package project.everytime.client.board.repository.impl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import project.everytime.client.board.Article;
 import project.everytime.client.board.QArticle;
 import project.everytime.client.board.QBoard;
+import project.everytime.client.board.dto.ArticleResponse;
 import project.everytime.client.board.repository.ArticleRepositoryCustom;
 
 import javax.persistence.EntityManager;
@@ -53,4 +57,26 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
                 .limit(4)
                 .fetch();
     }
+
+    @Override
+    public Page<ArticleResponse> findMyArticle(Long userId, Pageable pageable) {
+        List<Article> result = queryFactory
+                .selectFrom(article)
+                .join(article.board, board).fetchJoin()
+                .where(article.user.id.eq(userId))
+                .orderBy(article.createdDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        List<ArticleResponse> content = result.stream()
+                .map(article -> new ArticleResponse(userId, article))
+                .toList();
+
+        int total = queryFactory
+                .selectFrom(article)
+                .where(article.user.id.eq(userId))
+                .fetch().size();
+        return new PageImpl<>(content, pageable, total);
+    }
+
 }

@@ -11,10 +11,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ArticleImage extends TimeBaseEntity {
+public class Attach extends TimeBaseEntity {
 
     @Id @GeneratedValue
-    @Column(name = "article_image_id", unique = true, updatable = false, nullable = false)
+    @Column(name = "attach_id", unique = true, updatable = false, nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,7 +24,7 @@ public class ArticleImage extends TimeBaseEntity {
     @Embedded
     private UploadFile uploadFile;
 
-    public ArticleImage(Article article, UploadFile uploadFile) {
+    public Attach(Article article, UploadFile uploadFile) {
         this.article = article;
         this.uploadFile = uploadFile;
     }

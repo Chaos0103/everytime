@@ -44,7 +44,7 @@ public class Article extends TimeBaseEntity {
     private LocalDateTime hotArticleCreatedTime;
 
     @OneToMany(mappedBy = "article", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<ArticleImage> images = new ArrayList<>();
+    private List<Attach> attaches = new ArrayList<>();
 
     public Article(User user, Board board, String title, String text, int posvote, int comment, int scrapCount, boolean anonymous, boolean question) {
         this.user = user;
@@ -63,14 +63,14 @@ public class Article extends TimeBaseEntity {
         Article article = new Article(user, board, title, text, 0, 0, 0, anonymous, question);
 
         for (UploadFile uploadFile : uploadFiles) {
-            article.addArticleImage(new ArticleImage(article, uploadFile));
+            article.addArticleImage(new Attach(article, uploadFile));
         }
         return article;
     }
 
     //==연관관계 편의 메서드==//
-    public void addArticleImage(ArticleImage image) {
-        images.add(image);
+    public void addArticleImage(Attach image) {
+        attaches.add(image);
     }
 
     //==비즈니스 로직==//
@@ -79,9 +79,9 @@ public class Article extends TimeBaseEntity {
         this.text = text;
         this.anonymous = anonymous;
         this.question = question;
-        this.images.clear();
+        this.attaches.clear();
         for (UploadFile uploadFile : uploadFiles) {
-            this.images.add(new ArticleImage(this, uploadFile));
+            this.attaches.add(new Attach(this, uploadFile));
         }
     }
 
