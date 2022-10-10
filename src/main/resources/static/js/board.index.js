@@ -369,9 +369,9 @@ $().ready(function () {
             history.pushState(null, null, url);
         },
         loadContent: function (params) {
-            if (params.v) {
+            if (params.view) {
                 $container.find('div.seasons, div.categories').addClass('none');
-                _fn.loadComments(params.v);
+                _fn.loadComments(params.view);
             } else {
                 _set.boardPage = 1;
                 _set.searchType = 0;
@@ -416,7 +416,7 @@ $().ready(function () {
             if (typeof params.boardId !== 'undefined') {
                 url = '/' + params.boardId;
                 if (typeof params.articleId !== 'undefined') {
-                    url += '/v/' + params.articleId;
+                    url += '/view/' + params.articleId;
                 } else {
                     if (typeof params.hashtag !== 'undefined') {
                         url += '/hashtag/' + params.hashtag;
@@ -434,7 +434,7 @@ $().ready(function () {
             } else {
                 url = '/' + _set.boardId;
                 if (typeof params.articleId !== 'undefined') {
-                    url += '/v/' + params.articleId;
+                    url += '/view/' + params.articleId;
                 } else if (typeof params.hashtag !== 'undefined' || typeof params.title !== 'undefined' || typeof params.text !== 'undefined' || typeof params.all !== 'undefined') {
                     if (typeof params.hashtag !== 'undefined') {
                         url += '/hashtag/' + params.hashtag;
@@ -472,69 +472,72 @@ $().ready(function () {
             $('<article></article>').addClass('dialog').html(message).appendTo($articles);
         },
         createMoimInfo: function (data) {
-            var $moimData;
-            if ($(data).find('response').is(':has(moim)')) {
-                var $moimData = $(data).find('moim');
-                _set.type = Number($moimData.attr('type'));
-                _set.layout = Number($moimData.attr('layout'));
-                _set.privAnonym = Number($moimData.attr('priv_anonym'));
-                _set.privCommentAnonym = Number($moimData.attr('priv_comment_anonym'));
-                _set.info = $moimData.attr('info');
-                _set.isQuestionable = Number($moimData.attr('is_questionable'));
-                _set.isSearchable = Number($moimData.attr('is_searchable'));
-                _set.isWritable = Number($moimData.attr('is_writable'));
-                _set.isCommentable = Number($moimData.attr('is_commentable'));
-                _set.isManageable = Number($moimData.attr('is_manageable'));
-                _set.isSecret = Number($moimData.attr('is_secret'));
-                _set.isCommercial = Number($moimData.attr('is_commercial'));
-                _set.authToWrite = Number($moimData.attr('auth_to_write'));
-                _set.authToComment = Number($moimData.attr('auth_to_comment'));
-                if ($moimData.attr('placeholder')) {
-                    _set.placeholder = $moimData.attr('placeholder').replace(/<br \/>/gi, '\n');
+            let moimData;
+            let boardName;
+            let boardInfo;
+            if (data.moim) {
+                moimData = data.moim;
+                _set.type = Number(moimData.type);
+                _set.layout = Number(moimData.layout);
+                _set.privAnonym = Number(moimData.privAnonym);
+                _set.privCommentAnonym = Number(moimData.privCommentAnonym);
+                _set.info = moimData.info
+                _set.isQuestionable = Number(moimData.isQuestionable);
+                _set.isSearchable = Number(moimData.isSearchable);
+                _set.isWritable = Number(moimData.isWritable);
+                _set.isCommentable = Number(moimData.isCommentable);
+                _set.isManageable = Number(moimData.isManageable);
+                _set.isSecret = Number(moimData.isSecret);
+                _set.isCommercial = Number(moimData.isCommercial);
+                _set.authToWrite = Number(moimData.authToWrite);
+                _set.authToComment = Number(moimData.authToComment);
+                if (moimData.placeholder) {
+                    console.log(moimData.placeholder);
+                    _set.placeholder = moimData.placeholder.replace(/<br \/>/gi, '\n');
+                    console.log(_set.placeholder);
                 }
-                if ($moimData.attr('is_not_selected_hot_article')) {
-                    _set.isNotSelectedHotArticle = Number($moimData.attr('is_not_selected_hot_article'));
+                if (moimData.isNotSelectedHotArticle) {
+                    _set.isNotSelectedHotArticle = Number(moimData.isNotSelectedHotArticle);
                 }
-                var boardName;
-                boardName = $moimData.attr('name');
-                var boardInfo = $moimData.attr('info');
+                boardName = moimData.name;
+                let boardInfo = moimData.info;
                 $('#submenu').find('a').filter(function () {
                     return $(this).data('id') === Number(_set.boardId);
                 }).addClass('active');
             } else if (_set.boardId === 'search') {
-                var boardName = '\'' + _.escape(_set.keyword) + '\' 검색 결과';
+                boardName = '\'' + _.escape(_set.keyword) + '\' 검색 결과';
             } else if (_set.boardId === 'myarticle') {
-                var boardName = '내가 쓴 글';
+                boardName = '내가 쓴 글';
             } else if (_set.boardId === 'mycommentarticle') {
-                var boardName = '댓글 단 글';
+                boardName = '댓글 단 글';
             } else if (_set.boardId === 'myscrap') {
-                var boardName = '내 스크랩';
+                boardName = '내 스크랩';
             } else if (_set.boardId === 'hotarticle') {
-                var boardName = 'HOT 게시판';
-                var boardInfo = '공감 10개를 받으면 HOT 게시물로 자동 선정됩니다.';
+                boardName = 'HOT 게시판';
+                boardInfo = '공감 10개를 받으면 HOT 게시물로 자동 선정됩니다.';
             } else if (_set.boardId === 'bestarticle') {
-                var boardName = 'BEST 게시판';
-                var boardInfo = '공감을 100개 이상 받은 게시물 랭킹입니다.';
+                boardName = 'BEST 게시판';
+                boardInfo = '공감을 100개 이상 받은 게시물 랭킹입니다.';
             } else {
                 return false;
             }
             $title.find('h1').remove();
             $containerTitle.empty();
-            var $h1 = $('<h1></h1>').appendTo($title);
-            var $titleA = $('<a></a>').html(boardName);
+            const $h1 = $('<h1></h1>').appendTo($title);
+            const $titleA = $('<a></a>').html(boardName);
             if (_set.boardId !== 'search') {
                 $titleA.attr('href', '/' + _set.boardId);
             }
             $titleA.appendTo($h1);
-            if (_set.isSearchable && $(data).find('response').is(':has(hashtags > recommendation)')) {
-                var $hashtagsData = $(data).find('hashtags > recommendation');
-                $hashtagsData.find('item').each(function () {
-                    _set.hashtags.push($(this).text());
-                });
-            }
-            if ($moimData && $moimData.attr('is_primary') === '0') {
-                var $buttons = $('<ol></ol>').addClass('buttons');
-                var $li = $('<li></li>').appendTo($buttons);
+            // if (_set.isSearchable && $(data).find('response').is(':has(hashtags > recommendation)')) {
+            //     var $hashtagsData = $(data).find('hashtags > recommendation');
+            //     $hashtagsData.find('item').each(function () {
+            //         _set.hashtags.push($(this).text());
+            //     });
+            // }
+            if (moimData && moimData.isPrimary === '0') {
+                const $buttons = $('<ol></ol>').addClass('buttons');
+                const $li = $('<li></li>').appendTo($buttons);
                 if (_set.isUser) {
                     if (_set.isManageable) {
                         $('<a></a>').attr('id', 'manageMoim').text('관리하기').appendTo($li);
@@ -544,8 +547,8 @@ $().ready(function () {
                     $buttons.appendTo($containerTitle);
                 }
             }
-            var $containerH1 = $('<h1></h1>').appendTo($containerTitle);
-            var $containerTitleA = $('<a></a>').html(boardName);
+            const $containerH1 = $('<h1></h1>').appendTo($containerTitle);
+            const $containerTitleA = $('<a></a>').html(boardName);
             if (_set.boardId !== 'search') {
                 $containerTitleA.attr('href', '/' + _set.boardId);
             }
@@ -726,7 +729,7 @@ $().ready(function () {
                 var $a = $('<a></a>').attr('href', articleUrl).html($noticeData.attr('text')).appendTo($notice);
             }
 
-            const articles = data.content;
+            const articles = data.articles;
             for(let i=0;i<articles.length;i++) {
                 const article = articles[i];
                 const isMine = Number(article.isMine);
@@ -852,7 +855,7 @@ $().ready(function () {
                     $('<span></span>').addClass('scrap').text('스크랩').appendTo($buttons);
                     $buttons.appendTo($a);
                 }
-                $('<input></input>').attr({
+                $('<input/>').attr({
                     type: 'hidden',
                     name: article.id + '_comment_anonym',
                     value: article.commentAnonym
@@ -952,8 +955,7 @@ $().ready(function () {
                 conditions.moiminfo = 'true';
             }
             $.ajax({
-                url: _apiServerUrl + '/find/board/comment/list',
-                xhrFields: {withCredentials: true},
+                url: '/find/board/comment/list',
                 type: 'POST',
                 data: conditions,
                 success: function (data) {

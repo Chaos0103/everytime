@@ -2,7 +2,7 @@
 
 #writeArticleButton {
     display: block; margin-bottom: 5px; padding: 0 10px; height: 50px; line-height: 46px; border: 2px solid #d6d6d6; box-sizing: border-box; cursor: text;
-    color: #a6a6a6; font-size: 14px; background: #f9f9f9 url('/static/images/container.write.background.png') no-repeat right center; background-size: 40px 40px;
+    color: #a6a6a6; font-size: 14px; background: #f9f9f9 url('/images/container/container.write.background.png') no-repeat right center; background-size: 40px 40px;
 }
 #container > div.title {
     margin-bottom: -20px; padding: 15px; border: 1px solid #d6d6d6; box-sizing: border-box;
@@ -128,10 +128,10 @@
     width: 40px; height: 40px; background-repeat: no-repeat; background-position: center center; background-size: 40px 40px; cursor: pointer;
 }
 #container > div.articles > form.write ul.option li.hashtag {
-    float: left; background-image: url('/static/images/container.articles.write.hashtag.png');
+    float: left; background-image: url('/images/container/container.articles.write.hashtag.png');
 }
 #container > div.articles > form.write ul.option li.attach {
-    float: left; background-image: url('/static/images/container.articles.write.attach.png');
+    float: left; background-image: url('/images/container/container.articles.write.attach.png');
 }
 #container > div.articles > form.write ul.option li.attach.active {
     background-image: url('/images/new/container.articles.write.attach.active.png');
@@ -143,19 +143,19 @@
     background: transparent url('/images/container.write.attach.loading.gif') no-repeat center center;
 }
 #container > div.articles > form.write ul.option li.question {
-    float: right; margin-right: 15px; background-image: url('/static/images/container.articles.write.question.png');
+    float: right; margin-right: 15px; background-image: url('/images/container/container.articles.write.question.png');
 }
 #container > div.articles > form.write ul.option li.question.active {
-    background-image: url('/static/images/container.articles.write.question.active.png');
+    background-image: url('/images/container/container.articles.write.question.active.png');
 }
 #container > div.articles > form.write ul.option li.anonym {
-    float: right; margin-right: 15px; background-image: url('/static/images/container.articles.write.anonym.png');
+    float: right; margin-right: 15px; background-image: url('/images/container/container.articles.write.anonym.png');
 }
 #container > div.articles > form.write ul.option li.anonym.active {
-    background-image: url('/static/images/container.articles.write.anonym.active.png');
+    background-image: url('/images/container/container.articles.write.anonym.active.png');
 }
 #container > div.articles > form.write ul.option li.submit {
-    float: right; background-color: #c62917; background-image: url('/static/images/container.articles.write.submit.png');
+    float: right; background-color: #c62917; background-image: url('/images/container/container.articles.write.submit.png');
 }
 #container > div.articles > form.write ul.option div.attachedfile {
     position: absolute; margin-top: 40px; margin-left: 40px; padding: 5px 10px;
@@ -387,7 +387,7 @@
     padding-left: 15px; color: #0ca5af; background-image: url('/images/container/container.articles.comment.png');
 }
 #container > div.articles > article ul.status li.scrap {
-    padding-left: 15px; color: #ffcc1c; background-image: url('/images/new/container.articles.scrap.png');
+    padding-left: 15px; color: #ffcc1c; background-image: url('/images/container/container.articles.scrap.png');
 }
 #container > div.articles > article ul.status.left li {
     margin-left: 0; margin-right: 8px; cursor: auto;
@@ -404,10 +404,10 @@
     background-color: #f9f9f9; background-repeat: no-repeat; background-position: left 12px center; background-size: 11px 11px;
 }
 #container > div.articles > article div.buttons span.posvote {
-    background-image: url('/static/images/container.articles.buttons.posvote.png');
+    background-image: url('/images/container/container.articles.buttons.posvote.png');
 }
 #container > div.articles > article div.buttons span.scrap {
-    background-image: url('/static/images/container.articles.buttons.scrap.png');
+    background-image: url('/images/container/container.articles.buttons.scrap.png');
 }
 #container > div.articles > article > div.comments {
     /* display: none; */
@@ -453,20 +453,20 @@
     display: inline-block; width: 40px; height: 40px; background-repeat: no-repeat; background-position: center center; background-size: 40px 40px; cursor: pointer;
 }
 #container > div.articles > article form.writecomment ul.option li.anonym {
-    margin-right: 5px; background-image: url('/static/images/container.articles.write.anonym.png');
+    margin-right: 5px; background-image: url('/images/container/container.articles.write.anonym.png');
 }
 #container > div.articles > article form.writecomment ul.option li.anonym.active {
-    background-image: url('/static/images/container.articles.write.anonym.active.png');
+    background-image: url('/images/container/container.articles.write.anonym.active.png');
 }
 #container > div.articles > article form.writecomment ul.option li.submit {
-    background-color: #c62917; background-image: url('/static/images/container.articles.write.submit.png');
+    background-color: #c62917; background-image: url('/images/container/container.articles.write.submit.png');
 }
 #container > div.articles > div.pagination > a {
     display: block; margin-top: 5px; margin-left: 5px; padding: 0 10px 0 25px; height: 35px; line-height: 35px; border: 1px solid #c62917; border-radius: 3px;
     color: #c62917; font-size: 14px; font-weight: bold; background-repeat: no-repeat; background-position: 10px center; background-size: 10px 10px; cursor: pointer;
 }
 #container > div.articles > div.pagination > a.list {
-    float: left; background-image: url('/static/images/container.articles.pagination.list.png');
+    float: left; background-image: url('/images/container/container.articles.pagination.list.png');
 }
 #container > div.articles > div.pagination > a.first {
     float: left; background-image: url('/images/container/container.articles.pagination.first.png');

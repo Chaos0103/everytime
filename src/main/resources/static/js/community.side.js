@@ -3,7 +3,7 @@ _gfn = _.extend(_gfn, {
     createArticleItem: function ($target, data) {
         const $a = $('<a></a>').addClass('article').appendTo($target);
         if (data.boardId && data.id) {
-            $a.attr('href', '/boards/' + data.boardId + '/view/' + data.id);
+            $a.attr('href', '/' + data.boardId + '/view/' + data.id);
         } else if (data.lectureId) {
             $a.attr('href', '/lecture/view/' + data.lectureId);
             var rate = Number(data.rate) / 5 * 100 + '%';
@@ -47,7 +47,7 @@ _gfn = _.extend(_gfn, {
     createListItem: function ($target, data) {
         const $a = $('<a></a>').addClass('list').appendTo($target);
         if (data.boardId && data.id) {
-            $a.attr('href', '/boards/' + data.boardId + '/view/' + data.id);
+            $a.attr('href', '/' + data.boardId + '/view/' + data.id);
         }
         $('<time></time>').text(_gfn.formatRelativeDate(data.createdDate)).appendTo($a);
         const text = data.title ? data.title : data.text;
