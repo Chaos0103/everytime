@@ -144,51 +144,8 @@
 <div id="container" class="article">
     <input type="hidden" id="isUser" value="1">
     <input type="hidden" id="boardId" value="0" th:value="${boardId}">
-
-    <div class="wrap title">
-        <h1><a>자유게시판</a></h1>
-    </div>
+    <div class="wrap title"></div>
     <div class="wrap articles">
-        <a id="writeArticleButton">새 글을 작성해주세요!</a>
-        <form class="write">
-            <p>
-                <input type="text" name="title" autocomplete="off" placeholder="글 제목" class="title">
-            </p>
-            <p>
-                <textarea name="text" class="smallplaceholder" placeholder="에브리타임은 누구나 기분 좋게 참여할 수 있는 커뮤니티를 만들기 위해 커뮤니티 이용규칙을 제정하여 운영하고 있습니다. 위반 시 게시물이 삭제되고 서비스 이용이 일정 기간 제한될 수 있습니다."></textarea>
-            </p>
-            <input type="file" name="file" multiple="true" class="file">
-            <ol class="thumbnails">
-                <li class="new"></li>
-            </ol>
-            <p class="question">
-            <div>질문 글을 작성하면 게시판 상단에 일정 기간 동안 노출되어, 더욱 빠르게 답변을 얻을 수 있게 됩니다.<br>또한, 다른 학우들이 정성껏 작성한 답변을 유지하기 위해, 댓글이 달린 이후에는 <b>글을 수정 및 삭제할 수 없습니다.</b></div>
-            </p>
-            <ul class="option">
-                <li class="hashtag"></li>
-                <li class="attach"></li>
-                <li class="submit"></li>
-                <li class="anonym"></li>
-                <li class="question"></li>
-            </ul>
-            <div class="clearBothOnly"></div>
-        </form>
-
-        <!-- 자유게시판 -->
-        <article>
-            <a href="#" class="article">
-                <h2 class="medium">Title</h2>
-                <p class="small">text</p>
-                <time class="small">n분 전</time>
-                <h3 class="small">nickname</h3>
-                <ul class="status">
-                    <li class="attach">0</li>
-                    <li class="vote">0</li>
-                    <li class="comment">0</li>
-                </ul>
-                <hr>
-            </a>
-        </article>
         <div class="clearBothOnly"></div>
         <div class="pagination">
             <form class="search">
