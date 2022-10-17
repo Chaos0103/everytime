@@ -1,7 +1,6 @@
 package project.everytime.client.user;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.everytime.admin.school.School;
@@ -38,7 +37,7 @@ public class User extends TimeBaseEntity {
     private String nickname;
     private LocalDateTime nicknameModifiedDate;
     @Column(nullable = false, length = 4)
-    private String yearOfAdmission;
+    private String enterYear;
     @Column(updatable = false, nullable = false, length = 1)
     private String sex;
     @Column(unique = true, nullable = false)
@@ -51,7 +50,7 @@ public class User extends TimeBaseEntity {
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
-    public User(School school, String loginId, String password, String username, String birth, String phone, String nickname, String yearOfAdmission, String sex, String email, boolean adInfoSendAgree) {
+    public User(School school, String loginId, String password, String username, String birth, String phone, String nickname, String enterYear, String sex, String email, boolean adInfoSendAgree) {
         this.school = school;
         this.loginId = loginId;
         this.password = password;
@@ -60,10 +59,10 @@ public class User extends TimeBaseEntity {
         this.phone = phone;
         this.nickname = nickname;
         this.nicknameModifiedDate = LocalDateTime.now().minusDays(30);
-        this.yearOfAdmission = yearOfAdmission;
+        this.enterYear = enterYear;
         this.sex = sex;
         this.email = email;
-        this.uploadFile = null;
+        this.uploadFile = new UploadFile("/file/init.png", "/file/init.png");
         this.authType = AuthType.NONE;
         this.adInfoSendAgree = adInfoSendAgree;
         this.status = AccountStatus.ACTIVE;
