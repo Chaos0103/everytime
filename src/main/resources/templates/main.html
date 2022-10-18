@@ -48,13 +48,13 @@
         <div class="group">
             <ul>
                 <li><a href="/36" data-id="36" class="new">자유게시판</a></li>
-                <li><a href="/37" data-id="0">비밀게시판</a></li>
-                <li><a href="#" data-id="0">졸업생게시판</a></li>
-                <li><a href="#" data-id="0">새내기게시판</a></li>
-                <li><a href="#" data-id="0">시사·이슈</a></li>
-                <li><a href="#" data-id="0">장터게시판</a></li>
-                <li><a href="#" data-id="0">정보게시판</a></li>
-                <li><a href="#" data-id="0">홍보게시판</a></li>
+                <li><a href="/37" data-id="37">비밀게시판</a></li>
+                <li><a href="/38" data-id="38">졸업생게시판</a></li>
+                <li><a href="/39" data-id="39">새내기게시판</a></li>
+                <li><a href="/40" data-id="40">시사·이슈</a></li>
+                <li><a href="/41" data-id="41">장터게시판</a></li>
+                <li><a href="/42" data-id="42">정보게시판</a></li>
+                <li><a href="/43" data-id="43">홍보게시판</a></li>
             </ul>
         </div>
         <div class="group">
@@ -137,21 +137,10 @@
     <input type="hidden" id="communityCampusId" value="60">
 </div>
 <div id="container" class="community">
-
-    <aside class="none">
-        <form class="search">
-            <input type="search" name="keyword" class="text" placeholder="전체 게시판의 글을 검색하세요!">
-        </form>
-        <div class="title">
-            <a class="hamburger"></a>
-            <h1>세종대 에브리타임</h1>
-            <ol class="buttons">
-                <li><a id="searchArticle">글 검색</a></li>
-            </ol>
-        </div>
-    </aside>
-    <div class="banners">
-        <a href="#"><img src="https://cf-eba.everytime.kr/20220922_fint_1000_home_____.png" alt="banners"></a>
+    <div class="banners" th:each="advertisement : ${mainAdvertisement}">
+        <a href="#" th:href="${advertisement.url}">
+            <img src="https://cf-eba.everytime.kr/20220922_fint_1000_home_____.png" th:src="${advertisement.storeFileName}" alt="banners">
+        </a>
     </div>
     <div class="leftside">
         <div class="card pconly">
@@ -161,7 +150,7 @@
                 <p class="school" th:text="${loginUser.username}">username</p>
                 <p class="school" th:text="${loginUser.loginId}">loginId</p>
                 <ul class="buttons">
-                    <li><a href="/templates/my.html" th:href="@{/my}">내 정보</a></li>
+                    <li><a href="/templates/my/my.html" th:href="@{/my}">내 정보</a></li>
                     <li><a href="/user/logout" th:href="@{/logout}">로그아웃</a></li>
                 </ul>
                 <hr>
@@ -175,19 +164,11 @@
                 <hr>
             </div>
         </div>
-        <div class="card">
+        <div class="card" th:each="advertisement:${sideAdvertisement}">
             <div class="banner">
-                <a href="#"><img src="https://cf-eba.everytime.kr/20220908_LGCNS_card_re.png" alt="banners"></a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="banner">
-                <a href="#"><img src="https://cf-eba.everytime.kr/20220925_monimo_Supporters_card.jpg" alt="banners"></a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="banner">
-                <a href="#"><img src="https://cf-eba.everytime.kr/20220913_Heineken_Silver_card.jpg" alt="banners"></a>
+                <a href="#" th:href="${advertisement.url}">
+                    <img src="https://cf-eba.everytime.kr/20220908_LGCNS_card_re.png" th:src="${advertisement.storeFileName}" alt="banners">
+                </a>
             </div>
         </div>
     </div>

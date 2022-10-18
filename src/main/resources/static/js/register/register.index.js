@@ -1,20 +1,19 @@
 $().ready(function () {
-    var $container = $('#container');
-    var $enterYear = $container.find('select[name="enter_year"]');
-    var $campusName = $container.find('input[name="campus_name"]');
-    var $campusId = $container.find('input[name="campus_id"]');
-    var $campuses = $container.find('ol.campuses');
-    var _set = {
-        campuses: []
+    const $container = $('#container');
+    const $enterYear = $container.find('select[name="enterYear"]');
+    const $schoolName = $container.find('input[name="schoolName"]');
+    const $schoolId = $container.find('input[name="schoolId"]');
+    const $schools = $container.find('ol.schools');
+    const _set = {
+        schools: []
     };
-    var _fn = {
+    const _fn = {
         init: function () {
             $.ajax({
                 url: '/find/school/campus/list',
-                xhrFields: {withCredentials: true},
                 type: 'POST',
                 success: function (response) {
-                    _set.campuses = response.map(function (data) {
+                    _set.schools = response.map(function (data) {
                         return {
                             id: data.id,
                             name: data.name,
@@ -23,52 +22,52 @@ $().ready(function () {
                     });
                 }
             });
-            $campusName.on('keyup', function (event) {
-                _fn.onKeyUpCampusName();
+            $schoolName.on('keyup', function (event) {
+                _fn.onKeyUpSchoolName();
             }).on('focus', function () {
-                _fn.onResetCampusName();
+                _fn.onResetSchoolName();
             });
-            $campuses.on('click', 'li a', function () {
-                _fn.onClickCampusItem($(this).parent().data());
+            $schools.on('click', 'li a', function () {
+                _fn.onClickSchoolItem($(this).parent().data());
             });
             $container.on('submit', function (event) {
                 _fn.onSubmit(event);
             });
         },
-        onKeyUpCampusName: function () {
-            $campuses.empty();
-            var keyword = $campusName.val();
-            var lowerCaseKeyword = keyword.toLowerCase();
-            var keywordForRegExp = new RegExp(lowerCaseKeyword);
-            var matchedCampuses = _.filter(_set.campuses, function (campus) {
-                return campus.lowerCaseName.match(keywordForRegExp);
+        onKeyUpSchoolName: function () {
+            $schools.empty();
+            const keyword = $schoolName.val();
+            const lowerCaseKeyword = keyword.toLowerCase();
+            let keywordForRegExp = new RegExp(lowerCaseKeyword);
+            let matchedSchools = _.filter(_set.schools, function (school) {
+                return school.lowerCaseName.match(keywordForRegExp);
             });
-            if (keyword.length > 1 && matchedCampuses.length === 0) {
+            if (keyword.length > 1 && matchedSchools.length === 0) {
                 keywordForRegExp = new RegExp(lowerCaseKeyword.slice(0, -1));
-                matchedCampuses = _.filter(_set.campuses, function (campus) {
-                    return campus.lowerCaseName.match(keywordForRegExp);
+                matchedSchools = _.filter(_set.schools, function (school) {
+                    return school.lowerCaseName.match(keywordForRegExp);
                 });
-                if (matchedCampuses.length === 0) {
-                    var html = '검색된 학교가 없습니다.<br>에브리타임은 국내 ' + _set.campuses.length + '개 대학을 지원합니다.';
-                    $('<li></li>').html(html).addClass('empty').appendTo($campuses);
+                if (matchedSchools.length === 0) {
+                    const html = '검색된 학교가 없습니다.<br>에브리타임은 국내 ' + _set.schools.length + '개 대학을 지원합니다.';
+                    $('<li></li>').html(html).addClass('empty').appendTo($schools);
                 }
             }
-            _.each(matchedCampuses, function (campus) {
-                var html = '<a>' + campus.name.replace(keyword, '<strong>' + keyword + '</strong>') + '</a>';
-                $('<li></li>').html(html).data(campus).appendTo($campuses);
+            _.each(matchedSchools, function (school) {
+                const html = '<a>' + school.name.replace(keyword, '<strong>' + keyword + '</strong>') + '</a>';
+                $('<li></li>').html(html).data(school).appendTo($schools);
             });
         },
-        onResetCampusName: function () {
-            if (!$campusId.val()) {
+        onResetSchoolName: function () {
+            if (!$schoolId.val()) {
                 return;
             }
-            $campusName.val('');
-            $campusId.val('');
+            $schoolName.val('');
+            $schoolId.val('');
         },
-        onClickCampusItem: function (campus) {
-            $campusName.val(campus.name);
-            $campusId.val(campus.id);
-            $campuses.empty();
+        onClickSchoolItem: function (school) {
+            $schoolName.val(school.name);
+            $schoolId.val(school.id);
+            $schools.empty();
         },
         onSubmit: function (event) {
             if (!$enterYear.val()) {
@@ -76,7 +75,7 @@ $().ready(function () {
                 event.preventDefault();
                 return;
             }
-            if (!$campusId.val()) {
+            if (!$schoolId.val()) {
                 alert('가입할 학교를 선택해주세요.');
                 event.preventDefault();
                 return;

@@ -4,32 +4,43 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import project.everytime.FileStore;
+import project.everytime.admin.school.School;
+import project.everytime.admin.school.repository.SchoolRepository;
 import project.everytime.client.UploadFile;
 import project.everytime.client.user.AccountStatus;
 import project.everytime.client.user.AuthType;
 import project.everytime.client.user.User;
+import project.everytime.client.user.dto.UserJoinDto;
 import project.everytime.client.user.repository.UserRepository;
 import project.everytime.client.user.service.UserService;
 import project.everytime.exception.DuplicateException;
 import project.everytime.exception.NoSuchException;
+import project.everytime.exception.NotEqualsException;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static project.everytime.exception.ExceptionMessage.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final SchoolRepository schoolRepository;
     private final FileStore fileStore;
 
     @Override
-    public Long addUser(User user) {
-        duplicatedLoginId(user.getLoginId());
-        duplicatedPhone(user.getPhone());
-        duplicatedEmail(user.getEmail());
+    public Long addUser(Long schoolId, UserJoinDto data) {
+        School findSchool = getSchool(schoolId);
 
+        duplicatedLoginId(data.getLoginId());
+        duplicatedPhone(data.getPhone());
+        duplicatedEmail(data.getEmail());
+        duplicatedNickname(data.getNickname());
+
+        User user = User.createUser(findSchool, data.getLoginId(), data.getPassword(), data.getUsername(), data.getBirth(), data.getPhone(), data.getNickname(), data.getEnterYear(), data.getSex(), data.getEmail(), data.getAgreementAd());
         User savedUser = userRepository.save(user);
 
         return savedUser.getId();
@@ -38,9 +49,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editEmail(Long userId, String email, String password) {
         User findUser = getUser(userId);
-        if (!findUser.getPassword().equals(password)) {
-            // TODO: 2022/09/29 예외처리
-            throw new IllegalArgumentException();
+        if (!isEqualsPassword(findUser.getPassword(), password)) {
+            throw new NotEqualsException(NOT_EQUALS_EXCEPTION_PASSWORD);
         }
         findUser.changeEmail(email);
     }
@@ -48,10 +58,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editPassword(Long userId, String originPassword, String newPassword) {
         User findUser = getUser(userId);
-        //현재 비밀번호 일치 여부
-        if (!findUser.getPassword().equals(originPassword)) {
-            // TODO: 2022/09/29 예외처리
-            throw new IllegalArgumentException();
+        if (!isEqualsPassword(findUser.getPassword(), originPassword)) {
+            throw new NotEqualsException(NOT_EQUALS_EXCEPTION_PASSWORD);
         }
         findUser.changePassword(newPassword);
     }
@@ -59,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editNickname(Long userId, String nickname) {
         User findUser = getUser(userId);
-        if (findUser.getNicknameModifiedDate().isAfter(LocalDateTime.now().minusDays(30))) {
+        if (findUser.getNickname().getNicknameModifiedDate().isAfter(LocalDateTime.now().minusDays(30))) {
             // TODO: 2022/09/29 예외처리
             throw new IllegalArgumentException();
         }
@@ -80,9 +88,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editAdInfoSendAgree(Long userId, Boolean agree) {
+    public void editAdInfoSendAgree(Long userId, int agreementAd) {
         User findUser = getUser(userId);
-        findUser.changeAdInfoSendAgree(agree);
+        findUser.changeAdInfoSendAgree(agreementAd);
     }
 
     @Override
@@ -98,19 +106,25 @@ public class UserServiceImpl implements UserService {
         return userId;
     }
 
+    //== 검증 로직 ==//
     private void duplicatedLoginId(String loginId) {
         Optional<User> findUser = userRepository.findByLoginId(loginId);
-        validation(findUser, "이미 사용중인 아이디입니다");
+        validation(findUser, DUPLICATE_EXCEPTION_LOGIN_ID);
     }
 
     private void duplicatedPhone(String phone) {
         Optional<User> findUser = userRepository.findByPhone(phone);
-        validation(findUser, "이미 등록된 연락처입니다");
+        validation(findUser, DUPLICATE_EXCEPTION_PHONE);
     }
 
     private void duplicatedEmail(String email) {
         Optional<User> findUser = userRepository.findByEmail(email);
-        validation(findUser, "이미 사용중인 이메일입니다");
+        validation(findUser, DUPLICATE_EXCEPTION_EMAIL);
+    }
+
+    private void duplicatedNickname(String nickname) {
+        Optional<User> findUser = userRepository.findByNickname(nickname);
+        validation(findUser, DUPLICATE_EXCEPTION_NICKNAME);
     }
 
     private void validation(Optional<User> user, String message) {
@@ -119,11 +133,25 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    //== 조회 메서드 ==//
     private User getUser(Long userId) {
-        User findUser = userRepository.findById(userId).orElse(null);
-        if (findUser == null) {
-            throw new NoSuchException("등록되지 않은 사용자입니다");
+        Optional<User> findUser = userRepository.findById(userId);
+        if (findUser.isEmpty()) {
+            throw new NoSuchException(NO_SUCH_EXCEPTION_USER);
         }
-        return findUser;
+        return findUser.get();
+    }
+
+    private School getSchool(Long schoolId) {
+        Optional<School> findSchool = schoolRepository.findById(schoolId);
+        if (findSchool.isEmpty()) {
+            throw new NoSuchException(NO_SUCH_EXCEPTION_SCHOOL);
+        }
+        return findSchool.get();
+    }
+
+    //== 편의 메서드 ==//
+    private boolean isEqualsPassword(String password, String target) {
+        return password.equals(target);
     }
 }

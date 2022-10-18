@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>에브리타임</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" href="/static/css/register.css" th:href="@{/css/register.css}" rel="stylesheet">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
+
+    <script type="text/javascript" src="/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
+    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>
+    <script type="text/javascript" src="/static/js/register/register.info.js" th:src="@{/js/register/register.info.js}"></script>
+</head>
+<body>
+<form id="container" th:data-adagreement="${agreementAd}" data-redirecturl="/">
+    <h2>회원 정보</h2>
+    <!-- 삭제 예정 -->
+    <div class="input">
+        <div class="label">
+            <label>이름</label>
+        </div>
+        <input type="text" name="username" maxlength="20" placeholder="이름" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <div class="input">
+        <div class="label">
+            <label>생년월일</label>
+        </div>
+        <input type="text" name="birth" maxlength="8" placeholder="생년월일" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <div class="input">
+        <div class="label">
+            <label>성별</label>
+        </div>
+        <input type="text" name="sex" maxlength="1" placeholder="성별" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <div class="input">
+        <div class="label">
+            <label>휴대폰번호</label>
+        </div>
+        <input type="text" name="phone" maxlength="13" placeholder="휴대폰번호" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <!-- 삭제 예정 -->
+    <div class="input">
+        <div class="label">
+            <label>아이디</label>
+            <p>영문, 숫자, 4~20자</p>
+        </div>
+        <input type="text" name="loginId" maxlength="20" placeholder="아이디" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <div class="input">
+        <div class="label">
+            <label>비밀번호</label>
+            <p>영문, 숫자, 특문이 2종류 이상 조합된 8~20자</p>
+        </div>
+        <input type="password" name="password" maxlength="20" placeholder="비밀번호">
+        <div class="caution"></div>
+        <input type="password" name="password2" maxlength="20" placeholder="비밀번호 확인">
+        <div class="caution"></div>
+    </div>
+    <div class="input">
+        <div class="label">
+            <label>이메일</label>
+            <p>아이디/비밀번호 찾기에 필요</p>
+        </div>
+        <input type="email" name="email" placeholder="이메일" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <div class="input">
+        <div class="label">
+            <label>닉네임</label>
+            <p>커뮤니티 활동에 필요</p>
+        </div>
+        <input type="text" name="nickname" maxlength="10" placeholder="닉네임" autocomplete="off">
+        <div class="caution"></div>
+    </div>
+    <input type="hidden" name="enterYear" th:value="${enterYear}">
+    <input type="hidden" name="schoolId" th:value="${schoolId}">
+    <input type="submit" value="회원가입">
+</form>
+</body>
+</html>

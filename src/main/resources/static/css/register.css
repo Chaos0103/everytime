@@ -44,11 +44,20 @@ input,select,textarea {
     outline: none
 }
 
-input::placeholder,textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #a6a6a6
 }
 
-input[type=button],input[type=email],input[type=number],input[type=password],input[type=search],input[type=text],input[type=submit],select,textarea {
+input[type=button],
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=text],
+input[type=submit],
+select,
+textarea {
     -webkit-appearance: none;
     letter-spacing: -0.5px
 }
@@ -57,7 +66,10 @@ textarea {
     resize: none
 }
 
-#container div.input input[type=email],#container div.input input[type=password],#container div.input input[type=text],#container div.input select {
+#container div.input input[type=email],
+#container div.input input[type=password],
+#container div.input input[type=text],
+#container div.input select {
     display: block;
     box-sizing: border-box;
     margin-top: 4px;
@@ -134,24 +146,34 @@ textarea {
     background-image: url("/images/register/register.input.select.png")
 }
 
-#container div.input input[type=email],#container div.input input[type=password],#container div.input input[type=text] {
+#container div.input input[type=email],
+#container div.input input[type=password],
+#container div.input input[type=text] {
     padding-right: 40px
 }
 
-#container div.input input[type=email]:focus,#container div.input input[type=password]:focus,#container div.input input[type=text]:focus {
+#container div.input input[type=email]:focus,
+#container div.input input[type=password]:focus,
+#container div.input input[type=text]:focus {
     background-color: #fff
 }
 
-#container div.input input[type=email].search,#container div.input input[type=password].search,#container div.input input[type=text].search {
+#container div.input input[type=email].search,
+#container div.input input[type=password].search,
+#container div.input input[type=text].search {
     background-image: url("/images/register/register.input.search.png")
 }
 
-#container div.input input[type=email].caution,#container div.input input[type=password].caution,#container div.input input[type=text].caution {
-    background-image: url("/images/register.input.caution.png")
+#container div.input input[type=email].caution,
+#container div.input input[type=password].caution,
+#container div.input input[type=text].caution {
+    background-image: url("/images/register/register.input.caution.png")
 }
 
-#container div.input input[type=email].pass,#container div.input input[type=password].pass,#container div.input input[type=text].pass {
-    background-image: url("/images/register.input.pass.png")
+#container div.input input[type=email].pass,
+#container div.input input[type=password].pass,
+#container div.input input[type=text].pass {
+    background-image: url("/images/register/register.input.pass.png")
 }
 
 #container div.input div.caution {
@@ -175,11 +197,11 @@ textarea {
     background-color: #c62917
 }
 
-#container ol.campuses {
+#container ol.schools {
     margin-top: 16px
 }
 
-#container ol.campuses li a {
+#container ol.schools li a {
     display: block;
     line-height: 40px;
     padding: 0 8px;
@@ -188,11 +210,11 @@ textarea {
     cursor: pointer
 }
 
-#container ol.campuses li a strong {
+#container ol.schools li a strong {
     color: #c62917
 }
 
-#container ol.campuses li.empty {
+#container ol.schools li.empty {
     line-height: 20px;
     padding: 0 8px;
     color: #a6a6a6;
@@ -220,7 +242,7 @@ textarea {
 }
 
 #container div.agreement label input[type=checkbox]:checked~figure.checkbox {
-    background-image: url("/images/register.agreement.checkbox.checked.png")
+    background-image: url("/images/register/register.agreement.checkbox.checked.png")
 }
 
 #container div.agreement label figure.checkbox {
@@ -228,7 +250,7 @@ textarea {
     margin: 13px 8px 0 0;
     width: 14px;
     height: 14px;
-    background-image: url("/images/register.agreement.checkbox.unchecked.png");
+    background-image: url("/images/register/register.agreement.checkbox.unchecked.png");
     background-size: 14px 14px;
     vertical-align: top
 }

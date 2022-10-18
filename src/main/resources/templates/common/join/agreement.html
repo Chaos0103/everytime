@@ -8,19 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link type="text/css" href="/static/css/register.css" th:href="@{/css/register.css}" rel="stylesheet">
-    <link href="/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon" type="image/x-icon">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
 
-    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
-    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
-    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>
-    <script type="text/javascript" src="/static/js/register.agreement.js" th:src="@{/js/register.agreement.js}"></script>
+    <script type="text/javascript" src="/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
+    <script type="text/javascript" src="/js/common.js" th:src="@{/js/common.js}"></script>
+    <script type="text/javascript" src="/js/register.agreement.js" th:src="@{/js/register.agreement.js}"></script>
 </head>
 <body>
 <div id="container">
     <h2>약관 동의</h2>
     <div class="agreement">
-        <label class="bold"><input type="checkbox" name="agreement_all"><figure class="checkbox"></figure>아래 약관에 모두 동의합니다.</label>
-        <label><input type="checkbox" name="agreement_service"><figure class="checkbox"></figure>서비스이용약관 동의 (필수)</label>
+        <label class="bold">
+            <input type="checkbox" name="agreement_all">
+            <figure class="checkbox"></figure>아래 약관에 모두 동의합니다.
+        </label>
+        <label>
+            <input type="checkbox" name="agreement_service">
+            <figure class="checkbox"></figure>서비스이용약관 동의 (필수)
+        </label>
         <div class="text">
             <h3>제1조(목적)</h3>
             <p>에브리타임 서비스 이용약관은 비누랩스 주식회사(이하 "회사"라 합니다)가 제공하는 에브리타임 서비스 및 캠퍼스픽 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임 사항 등을 규정함을 목적으로 합니다.</p>
@@ -553,16 +559,19 @@
             <p>에브리타임은 국내 대학생을 위한 서비스이며, 본인 인증을 통해 만 14세 이상만 가입할 수 있습니다.</p>
         </div>
     </div>
-    <form class="identity" method="post" action="https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb" data-osname="" data-type="checkplus">
-        <input type="hidden" name="m" value="checkplusSerivce">
-        <input type="hidden" name="EncodeData" value="AgAFQlExODVNEmUukO+22gc0OoHc3R/2JjptuR0vHmuSu83IFwMev5V1fhr2GnylP82hrwLvN5G1FY7eoy5qnDbhq+zZsgYN/0SpvGDprLbAskzjuqerq3D9FKkwFH3BrOt3Br5mUFX6U60YwIhm47F63e1pp4DzdmFEzQIpKHZ/iK25zqwb6Cs3eFHfWSqy53JvJrX1puCJ8b7Q0BKK+VNYzD5gGxMCf+U+T1pmhno0roRUWIjVjG44W02UqHZJLye2B8WClvDGuWUrkEG00xFAINOfTMCKuUrtN8tThkAChKIkQ47oUD295KA0cgNoGBGyJ5d/jXzb1HI6aT7nrp/txHp8l53RIv0frIFehm+CuS+5w1pSiVJ/kesxejHlbikjGMhtqptKsMBqBd0vZatlfFXgSTW26HKHwH/yHtH6QvL1fs7lTjOeef7VF0eXGS3dIhYAng+NThBjfuMC9jqyeFRS1RpJIO11jnnFKfJbOi6sdMqyAHaxJdvwAteo72U6Cm5KPTE&#x3D;">
+    <form class="identity" method="post" action="/register/info" data-osname="" data-type="checkplus">
+        <input type="hidden" name="agreementAd" value="0">
+        <input type="hidden" name="enterYear" th:value="${enterYear}">
+        <input type="hidden" name="schoolId" th:value="${schoolId}">
+<!--        <input type="hidden" name="m" value="checkplusSerivce">-->
+<!--        <input type="hidden" name="EncodeData" value="AgAFQlExODVNEmUukO+22gc0OoHc3R/2JjptuR0vHmuSu83IFwMev5V1fhr2GnylP82hrwLvN5G1FY7eoy5qnDbhq+zZsgYN/0SpvGDprLbAskzjuqerq3D9FKkwFH3BrOt3Br5mUFX6U60YwIhm47F63e1pp4DzdmFEzQIpKHZ/iK25zqwb6Cs3eFHfWSqy53JvJrX1puCJ8b7Q0BKK+VNYzD5gGxMCf+U+T1pmhno0roRUWIjVjG44W02UqHZJLye2B8WClvDGuWUrkEG00xFAINOfTMCKuUrtN8tThkAChKIkQ47oUD295KA0cgNoGBGyJ5d/jXzb1HI6aT7nrp/txHp8l53RIv0frIFehm+CuS+5w1pSiVJ/kesxejHlbikjGMhtqptKsMBqBd0vZatlfFXgSTW26HKHwH/yHtH6QvL1fs7lTjOeef7VF0eXGS3dIhYAng+NThBjfuMC9jqyeFRS1RpJIO11jnnFKfJbOi6sdMqyAHaxJdvwAteo72U6Cm5KPTE&#x3D;">-->
         <a class="button red">휴대폰 인증</a>
     </form>
-    <form class="identity" method="post" action="https://cert.vno.co.kr/ipin.cb" data-osname="" data-type="ipin">
-        <input type="hidden" name="m" value="pubmain">
-        <input type="hidden" name="enc_data" value="AgEERkEzOGl7Un92i+Cdw1A7PYcX4WJ3fvheSxTO+Y5lle017BXfEI5G4tT6wr2TtIzqJcFEUtCjATWx5pw2l4PlaEzMytu9VnLDB0i8ZigHcRG7rwyFPaH3sE8vSizujuD6w/PKgq6GTiQ1c4feaRZNHxUoLnd2YUTNAikodn+IrbnOrBvoai2VMSjyLF+dN5zuCP05lTlT5HnWuGzqST7wE8kfo+tEmtLDszmS2A+an1ZwVN1GE6dZzcgRuYxi/oAaITf4FFPSESKci8GKFePfOJPnvFAL/za4vTOr1IpPzixySGokbUrVRH+BQHABwwrH6GZbbw&#x3D;&#x3D;">
-        <a class="button normal">아이핀 인증</a>
-    </form>
+<!--    <form class="identity" method="post" action="https://cert.vno.co.kr/ipin.cb" data-osname="" data-type="ipin">-->
+<!--        <input type="hidden" name="m" value="pubmain">-->
+<!--        <input type="hidden" name="enc_data" value="AgEERkEzOGl7Un92i+Cdw1A7PYcX4WJ3fvheSxTO+Y5lle017BXfEI5G4tT6wr2TtIzqJcFEUtCjATWx5pw2l4PlaEzMytu9VnLDB0i8ZigHcRG7rwyFPaH3sE8vSizujuD6w/PKgq6GTiQ1c4feaRZNHxUoLnd2YUTNAikodn+IrbnOrBvoai2VMSjyLF+dN5zuCP05lTlT5HnWuGzqST7wE8kfo+tEmtLDszmS2A+an1ZwVN1GE6dZzcgRuYxi/oAaITf4FFPSESKci8GKFePfOJPnvFAL/za4vTOr1IpPzixySGokbUrVRH+BQHABwwrH6GZbbw&#x3D;&#x3D;">-->
+<!--        <a class="button normal">아이핀 인증</a>-->
+<!--    </form>-->
 </div>
 </body>
 </html>

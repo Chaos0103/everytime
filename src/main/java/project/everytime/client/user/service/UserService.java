@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.everytime.client.user.AccountStatus;
 import project.everytime.client.user.AuthType;
 import project.everytime.client.user.User;
+import project.everytime.client.user.dto.UserJoinDto;
 
 import java.io.IOException;
 
@@ -13,11 +14,12 @@ public interface UserService {
 
     /**
      * 회원을 등록하는 로직(회원가입)
+     *
      * @param user 등록할 회원의 정보
      * @return 등록된 회원의 PK
-     * @exception project.everytime.exception.DuplicateException loginId, phone, email 중복시 예외 발생
+     * @throws project.everytime.exception.DuplicateException loginId, phone, email 중복시 예외 발생
      */
-    Long addUser(User user);
+    Long addUser(Long schoolId, UserJoinDto userJoinDto);
 
     //이메일 변경
     void editEmail(Long userId, String email, String password);
@@ -32,7 +34,7 @@ public interface UserService {
     void editImage(Long userId, MultipartFile file) throws IOException;
 
     //정보 동의 변경
-    void editAdInfoSendAgree(Long userId, Boolean agree);
+    void editAdInfoSendAgree(Long userId, int agree);
 
     //학교 인증 변경
     void editAuthType(Long userId, AuthType type);

@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @GetMapping("/nickname")
-    private String nicknamePage(@Login LoginUser loginUser, @ModelAttribute("form") NicknameEditForm form) {
+    public String nicknamePage(@Login LoginUser loginUser, @ModelAttribute("form") NicknameEditForm form) {
         form.setNickname(loginUser.getNickname());
         return "my/nickname";
     }

@@ -492,9 +492,7 @@ $().ready(function () {
                 _set.authToWrite = Number(moimData.authToWrite);
                 _set.authToComment = Number(moimData.authToComment);
                 if (moimData.placeholder) {
-                    console.log(moimData.placeholder);
-                    _set.placeholder = moimData.placeholder.replace(/<br \/>/gi, '\n');
-                    console.log(_set.placeholder);
+                    _set.placeholder = moimData.placeholder.replace(/<br\/>/gi, '\n');
                 }
                 if (moimData.isNotSelectedHotArticle) {
                     _set.isNotSelectedHotArticle = Number(moimData.isNotSelectedHotArticle);
@@ -735,7 +733,7 @@ $().ready(function () {
                 const isMine = Number(article.isMine);
                 //isNotice
                 const isQuestion = Number(article.isQuestion);
-                const text = _fn.parseArticleText(article.text);
+                const text = _fn.parseArticleText(article.text).replace(/<br\/>/gi, '\n');
                 const $article = $('<article></article>').data({
                     id: article.id,
                     'isMine': article.isMine
@@ -787,14 +785,16 @@ $().ready(function () {
                         }
                     } else if (_set.layout === 21 || _set.layout === 22) {
                         if (_set.layout === 21 && attaches.length > 0) {
-                            const attach = attaches.eq(0);
+                            const attach = attaches[0];
                             let filepath;
                             if (Number(attach.id) === -1) {
                                 filepath = '/images/attach.unauthorized.png';
                             } else {
-                                filepath = attach.fileurl;
+                                filepath = '/file/' + attach.fileName;
+                                console.log(filepath);
                             }
-                            $('<div></div>').addClass('attachthumbnail').css('background-image', 'url("' + filepath + '")').appendTo($a);
+                            // $('<div></div>').addClass('attachthumbnail').css('background-image', 'url("' + filepath + '")').appendTo($a);
+                            $('<img/>').addClass('attachthumbnail').attr('src', filepath).appendTo($a);
                         }
                         $title.addClass('medium').appendTo($a);
                         if (_set.layout === 21) {
@@ -992,32 +992,33 @@ $().ready(function () {
             _fn.createArticles(data, false);
             _fn.hideWriteArticleButton();
             $articles.find('ul.hashtags').remove();
-            var $article = $articles.find('> article').first();
-            var $comments = $article.find('div.comments');
-            $(data).find('comment').each(function () {
-                var $this = $(this);
-                var $comment = $('<article></article>').data({
-                    id: $this.attr('id'),
-                    parentId: $this.attr('parent_id'),
-                    'is_mine': $this.attr('is_mine')
+            const $article = $articles.find('> article').first();
+            const $comments = $article.find('div.comments');
+            const comments = data.comments;
+            for (let i = 0; i < comments.length; i++) {
+                const comment = comments[i];
+                const $comment = $('<article></article>').data({
+                    id: comment.id,
+                    parentId: comment.parentId,
+                    'is_mine': comment.isMine
                 }).appendTo($comments);
-                if ($this.attr('parent_id') !== '0') {
+                if (comment.parentId !== 0) {
                     $comment.addClass('child');
                 } else {
                     $comment.addClass('parent');
                 }
-                $('<img>').attr('src', $this.attr('user_picture')).addClass('picture medium').appendTo($comment);
-                $('<h3></h3>').html($this.attr('user_nickname')).addClass('medium').addClass($this.attr('user_type')).appendTo($comment);
-                var $status = $('<ul></ul>').addClass('status').appendTo($comment);
-                if (_set.isUser && $this.attr('id') !== '0') {
-                    if ($this.attr('parent_id') === '0' && (_set.isCommentable === 1 || _set.authToComment === 1)) {
+                $('<img/>').attr('src', comment.userPicture).addClass('picture medium').appendTo($comment);
+                $('<h3></h3>').html(comment.userNickname).addClass('medium').addClass(comment.userType).appendTo($comment);
+                const $status = $('<ul></ul>').addClass('status').appendTo($comment);
+                if (_set.isUser && comment.id !== 0) {
+                    if (comment.parentId === 0 && (_set.isCommentable === 1 || _set.authToComment === 1)) {
                         $('<li></li>').text('대댓글').addClass('childcomment').appendTo($status);
                     }
                     $('<li></li>').text('공감').addClass('commentvote').appendTo($status);
-                    if ($this.attr('is_mine') === '1') {
+                    if (comment.isMine === 1) {
                         $('<li></li>').text('삭제').addClass('del').appendTo($status);
                     } else {
-                        $('<li></li>').text('쪽지').addClass('messagesend').attr({'data-modal': 'messageSend', 'data-comment-id': $this.attr('id'), 'data-is-anonym': Number($this.attr('user_id') === '0')}).appendTo($status);
+                        $('<li></li>').text('쪽지').addClass('messagesend').attr({'data-modal': 'messageSend', 'data-comment-id': comment.id, 'data-is-anonym': Number(comment.userId === 0)}).appendTo($status);
                         if (_set.isManageable) {
                             $('<li></li>').text('삭제').addClass('managedel').appendTo($status);
                             $('<li></li>').text('삭제 및 이용 제한').addClass('manageabuse').appendTo($status);
@@ -1027,19 +1028,19 @@ $().ready(function () {
                     }
                 }
                 $('<hr>').appendTo($comment);
-                $('<p></p>').html($this.attr('text')).addClass('large').appendTo($comment)
+                $('<p></p>').html(comment.text).addClass('large').appendTo($comment)
                     .after(
-                        $('<time></time>').text(_gfn.formatRelativeDate($this.attr('created_at'))).addClass('medium').appendTo($comment),
+                        $('<time></time>').text(_gfn.formatRelativeDate(comment.createdDate)).addClass('medium').appendTo($comment),
                         $('<ul></ul>').addClass('status commentvotestatus').append(
                             $('<li></li>')
                                 .addClass('vote commentvote')
-                                .text($this.attr('posvote'))
-                                [$this.attr('posvote') === '0' ? 'hide' : 'show']()
+                                .text(comment.posvote)
+                                [comment.posvote === 0 ? 'hide' : 'show']()
                         )
                     );
-            });
+            }
             if (_set.isCommentable || _set.authToComment) {
-                var $writecomment = $('<form></form>').addClass('writecomment').appendTo($comments);
+                const $writecomment = $('<form></form>').addClass('writecomment').appendTo($comments);
                 $('<input>').attr({
                     type: 'text',
                     name: 'text',
@@ -1047,7 +1048,7 @@ $().ready(function () {
                     autocomplete: 'off',
                     placeholder: '댓글을 입력하세요.'
                 }).addClass('text').appendTo($writecomment);
-                var $option = $('<ul></ul>').addClass('option').appendTo($writecomment);
+                const $option = $('<ul></ul>').addClass('option').appendTo($writecomment);
                 if ($('input[name=' + $article.data('id') + '_comment_anonym]').val() === '0' && _set.privCommentAnonym !== 1) {
                     $('<li></li>').attr('title', '익명').addClass('anonym').appendTo($option);
                 }
@@ -1055,7 +1056,7 @@ $().ready(function () {
                 $('<div></div>').addClass('clearBothOnly').appendTo($writecomment);
             }
             $comments.show();
-            var $pagination = $articles.find('> div.pagination');
+            const $pagination = $articles.find('> div.pagination');
             $pagination.empty();
             $('<a></a>').attr('id', 'goListButton').text('글 목록').addClass('list').appendTo($pagination);
         },
@@ -1442,14 +1443,14 @@ $().ready(function () {
                 return;
             }
             _set.attachUploadingStatus = [];
-            var $writeForm = $articles.find('form.write');
-            var $thumbnails = $writeForm.find('> ol.thumbnails').show();
-            var $thumbnailsNewButton = $thumbnails.find('> li.new');
+            const $writeForm = $articles.find('form.write');
+            const $thumbnails = $writeForm.find('> ol.thumbnails').show();
+            const $thumbnailsNewButton = $thumbnails.find('> li.new');
             _.each(files, function (file, index) {
                 _set.attachUploadingStatus.push(0);
-                var $thumbnail = $('<li></li>').addClass('thumbnail loading').insertBefore($thumbnailsNewButton);
-                var fileName = 'everytime-web-' + new Date().getTime().toString() + '.jpg';
-                var loadImageOptions = {
+                const $thumbnail = $('<li></li>').addClass('thumbnail loading').insertBefore($thumbnailsNewButton);
+                const fileName = 'everytime-web-' + new Date().getTime().toString() + '.jpg';
+                const loadImageOptions = {
                     canvas: true,
                     maxWidth: 1280
                 };
@@ -1472,7 +1473,8 @@ $().ready(function () {
             });
         },
         uploadAttachOnWriteArticleForm: function (index, file, filename, $thumbnail, thumbnail) {
-            var $writeForm = $articles.find('form.write');
+
+            const $writeForm = $articles.find('form.write');
             if (_.indexOf(_set.attachUploadingStatus.slice(0, index), 0) !== -1) {
                 setTimeout(function () {
                     _fn.uploadAttachOnWriteArticleForm(index, file, filename, $thumbnail, thumbnail);
@@ -1492,10 +1494,11 @@ $().ready(function () {
                 $thumbnail.removeClass('loading').addClass('attached').data('id', attachId).css('background-image', 'url("' + thumbnail + '")');
                 $writeForm.find('input[name="file"]').val('');
             }
+
             $.ajax({
-                url: _apiServerUrl + '/save/board/article/attach',
-                xhrFields: {withCredentials: true},
+                url: '/save/board/article/attach',
                 type: 'POST',
+                contentType: false,
                 data: {
                     board_id: _set.boardId,
                     file_name: filename,
@@ -1507,6 +1510,7 @@ $().ready(function () {
                         uploadFail();
                         return;
                     }
+                    console.log(data);
                     var $attach = $(data).find('attach');
                     var $s3Provider = $(data).find('s3Provider');
                     var attachId = Number($attach.attr('id'));
@@ -1599,28 +1603,28 @@ $().ready(function () {
             var $option = $form.find('ul.option');
             var isAnonym = ($option.is(':has(li.anonym)') && $option.find('li.anonym').hasClass('active')) ? 1 : 0;
             var isQuestion = ($option.is(':has(li.question)') && $option.find('li.question').hasClass('active')) ? 1 : 0;
+            const $files = $form.find('input[name="file"]');
+            const form = new FormData();
+            for (let i = 0; i < $files[0].files.length; i++) {
+                form.append('files', $files[0].files[i]);
+            }
+            form.append("boardId", _set.boardId);
+            form.append("text", $text.val());
+            form.append("isAnonym", isAnonym);
+            form.append("isQuestion", isQuestion);
             if ($text.val().replace(/ /gi, '') === '') {
                 alert('내용을 입력해 주세요.');
                 $text.focus();
                 return false;
             }
-            var parameters = {
-                id: _set.boardId,
-                text: $text.val(),
-                is_anonym: isAnonym,
-                is_question: isQuestion
-            };
-            if (_set.attaches.length > 0) {
-                parameters.attaches = JSON.stringify(_set.attaches);
-            }
             if (_set.type === 2) {
-                var $title = $form.find('input[name="title"]');
+                const $title = $form.find('input[name="title"]');
                 if ($title.val().replace(/ /gi, '') === '') {
                     alert('제목을 입력해 주세요.');
                     $title.focus();
                     return false;
                 }
-                parameters.title = $title.val();
+                form.append("title", $title.val());
             }
             if ($form.is(':has(input[name="article_id"])')) {
                 parameters.article_id = $form.find('input[name="article_id"]').val();
@@ -1638,10 +1642,11 @@ $().ready(function () {
                 return;
             }
             $.ajax({
-                url: _apiServerUrl + '/save/board/article',
-                xhrFields: {withCredentials: true},
+                url: '/save/board/article',
                 type: 'POST',
-                data: parameters,
+                processData: false,
+                contentType: false,
+                data: form,
                 success: function (data) {
                     var responseCode = $(data).find('response').text();
                     if (responseCode === '0') {
@@ -1752,11 +1757,10 @@ $().ready(function () {
                 return false;
             }
             $.ajax({
-                url: _apiServerUrl + '/save/board/article/vote',
-                xhrFields: {withCredentials: true},
+                url: '/save/board/article/vote',
                 type: 'POST',
                 data: {
-                    id: $article.data('id'),
+                    articleId: $article.data('id'),
                     vote: '1'
                 },
                 success: function (data) {
@@ -1783,14 +1787,13 @@ $().ready(function () {
                 return false;
             }
             $.ajax({
-                url: _apiServerUrl + '/save/board/article/scrap',
-                xhrFields: {withCredentials: true},
+                url: '/save/board/article/scrap',
                 type: 'POST',
                 data: {
-                    article_id: $article.data('id')
+                    articleId: $article.data('id')
                 },
                 success: function (data) {
-                    var response = Number($('response', data).text());
+                    const response = Number(data);
                     if (response === 0) {
                         alert('스크랩할 수 없습니다.');
                     } else if (response === -1) {
@@ -1810,14 +1813,13 @@ $().ready(function () {
                 return false;
             }
             $.ajax({
-                url: _apiServerUrl + '/remove/board/article/scrap',
-                xhrFields: {withCredentials: true},
+                url: '/remove/board/article/scrap',
                 type: 'POST',
                 data: {
-                    article_id: $article.data('id')
+                    articleId: $article.data('id')
                 },
                 success: function (data) {
-                    var response = Number($('response', data).text());
+                    const response = Number(data);
                     if (response === 0) {
                         alert('취소할 수 없습니다.');
                     } else if (response === -1) {
@@ -1861,25 +1863,25 @@ $().ready(function () {
             }
             var params = {
                 text: $text.val(),
-                is_anonym: isAnonym
+                isAnonym: isAnonym
             };
             if ($form.data('parentId')) {
-                params.comment_id = $form.data('parentId');
+                params.commentId = $form.data('parentId');
             } else {
-                params.id = $article.data('id');
+                params.articleId = $article.data('id');
             }
             $.ajax({
-                url: _apiServerUrl + '/save/board/comment',
-                xhrFields: {withCredentials: true},
+                url: '/save/board/comment',
                 type: 'POST',
-                data: params,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(params),
                 success: function (data) {
-                    var responseCode = $(data).find('response').text();
-                    if (responseCode === '0' || responseCode === '-3') {
+                    if (data === 0 || data === -3) {
                         alert('댓글을 작성할 수 없습니다.');
-                    } else if (responseCode == '-1') {
+                    } else if (data === -1) {
                         alert('너무 자주 댓글을 작성할 수 없습니다.');
-                    } else if (responseCode === '-2') {
+                    } else if (data === -2) {
                         alert('내용을 입력해 주세요.');
                     } else {
                         location.reload();
@@ -1887,14 +1889,16 @@ $().ready(function () {
                 }
             });
         },
+        // todo 대댓글 문제 해결중
         createChildCommentForm: function ($comment) {
-            var $commentForm = $articles.find('> article > div.comments > form.writecomment').filter(function () {
+            let $commentForm = $articles.find('> article > div.comments > form.writecomment').filter(function () {
                 return $(this).data('parentId') === $comment.data('id');
             });
             if ($commentForm.length === 0) {
                 $commentForm = $articles.find('> article > div.comments > form.writecomment:not(.child)').clone().addClass('child').data('parentId', $comment.data('id'));
                 $commentForm.find('input[name="text"]').attr('placeholder', '대댓글을 입력하세요.');
-                var $beforeComment = $articles.find('> article > div.comments > article.child').filter(function () {
+                console.log($articles.find('> article > div.comments > article.child'));
+                let $beforeComment = $articles.find('> article > div.comments > article.child').filter(function () {
                     return $(this).data('parentId') === $comment.data('id');
                 }).last();
                 if ($beforeComment.length === 0) {

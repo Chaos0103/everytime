@@ -21,7 +21,7 @@ public class LoginUser {
     private String email;
     private UploadFile uploadFile;
     private AuthType authType;
-    private boolean adInfoSendAgree;
+    private boolean agreementAd;
     private AccountStatus status;
 
     public LoginUser(User user) {
@@ -31,13 +31,13 @@ public class LoginUser {
         this.username = user.getUsername();
         this.birth = user.getBirth();
         this.phone = user.getPhone();
-        this.nickname = user.getNickname();
-        this.yearOfAdmission = user.getYearOfAdmission();
+        this.nickname = user.getNickname().getNickname();
+        this.yearOfAdmission = user.getEnterYear();
         this.sex = user.getSex();
         this.email = user.getEmail();
         this.uploadFile = user.getUploadFile();
         this.authType = user.getAuthType();
-        this.adInfoSendAgree = user.isAdInfoSendAgree();
+        this.agreementAd = user.isAgreementAd();
         this.status = user.getStatus();
     }
 }

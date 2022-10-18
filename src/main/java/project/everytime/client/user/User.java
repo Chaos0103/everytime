@@ -33,9 +33,8 @@ public class User extends TimeBaseEntity {
     private String birth;
     @Column(unique = true, updatable = false, nullable = false, length = 13)
     private String phone;
-    @Column(nullable = false, length = 10)
-    private String nickname;
-    private LocalDateTime nicknameModifiedDate;
+    @Embedded
+    private Nickname nickname;
     @Column(nullable = false, length = 4)
     private String enterYear;
     @Column(updatable = false, nullable = false, length = 1)
@@ -46,27 +45,33 @@ public class User extends TimeBaseEntity {
     private UploadFile uploadFile;
     @Enumerated(EnumType.STRING)
     private AuthType authType;
-    private boolean adInfoSendAgree;
+    private boolean agreementAd;
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
-    public User(School school, String loginId, String password, String username, String birth, String phone, String nickname, String enterYear, String sex, String email, boolean adInfoSendAgree) {
+    private User(School school, String loginId, String password, String username, String birth, String phone, String enterYear, String sex, String email) {
         this.school = school;
         this.loginId = loginId;
         this.password = password;
         this.username = username;
         this.birth = birth;
         this.phone = phone;
-        this.nickname = nickname;
-        this.nicknameModifiedDate = LocalDateTime.now().minusDays(30);
         this.enterYear = enterYear;
         this.sex = sex;
         this.email = email;
-        this.uploadFile = new UploadFile("/file/init.png", "/file/init.png");
-        this.authType = AuthType.NONE;
-        this.adInfoSendAgree = adInfoSendAgree;
-        this.status = AccountStatus.ACTIVE;
+    }
+
+    //== 생성 메서드 ==//
+    public static User createUser(School school, String loginId, String password, String username, String birth, String phone, String nickname, String enterYear, String sexNumber, String email, int agreementAd) {
+        String sex = sexNumber.equals("1") || sexNumber.equals("3") ? "M" : "F";
+        User user = new User(school, loginId, password, username, birth, phone, enterYear, sex, email);
+        user.changeNickname(nickname);
+        user.changeUploadFile(new UploadFile("/file/initProfile.png", "/file/initProfile.png"));
+        user.changeAuthType(AuthType.NONE);
+        user.changeStatus(AccountStatus.ACTIVE);
+        user.changeAdInfoSendAgree(agreementAd);
         school.addCount();
+        return user;
     }
 
     //== 비즈니스 로직==//
@@ -83,8 +88,8 @@ public class User extends TimeBaseEntity {
     }
 
     public void changeNickname(String nickname) {
-        this.nickname = nickname;
-        this.nicknameModifiedDate = LocalDateTime.now();
+        LocalDateTime period = LocalDateTime.now().plusDays(30);
+        this.nickname = new Nickname(nickname, period);
     }
 
     public void changeUploadFile(UploadFile uploadFile) {
@@ -95,7 +100,7 @@ public class User extends TimeBaseEntity {
         this.status = status;
     }
 
-    public void changeAdInfoSendAgree(boolean adInfoSendAgree) {
-        this.adInfoSendAgree = adInfoSendAgree;
+    public void changeAdInfoSendAgree(int agreementAd) {
+        this.agreementAd = (agreementAd == 1);
     }
 }

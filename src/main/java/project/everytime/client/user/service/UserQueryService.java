@@ -27,4 +27,8 @@ public interface UserQueryService {
 
     //로그인을 위한 조회
     LoginUser login(String loginId, String password);
+
+    String forgotLoginId(String email);
+
+    Long forgotPassword(String loginId);
 }

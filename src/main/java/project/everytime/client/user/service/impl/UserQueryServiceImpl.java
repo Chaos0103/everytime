@@ -14,6 +14,9 @@ import project.everytime.exception.NoSuchException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
+import static project.everytime.exception.ExceptionMessage.*;
 
 @Service
 @RequiredArgsConstructor
@@ -49,9 +52,27 @@ public class UserQueryServiceImpl implements UserQueryService {
     public LoginUser login(String loginId, String password) {
         User findUser = userRepository.findLoginByLoginIdAndPassword(loginId, password).orElse(null);
         if (findUser == null) {
-            throw new NoSuchException("등록되지 않은 회원입니다");
+            throw new NoSuchException(NO_SUCH_EXCEPTION_USER);
         }
         return new LoginUser(findUser);
+    }
+
+    @Override
+    public String forgotLoginId(String email) {
+        Optional<User> findUser = userRepository.findByEmail(email);
+        if (findUser.isEmpty()) {
+            throw new NoSuchException(NO_SUCH_EXCEPTION_USER);
+        }
+        return findUser.get().getEmail();
+    }
+
+    @Override
+    public Long forgotPassword(String loginId) {
+        Optional<User> findUser = userRepository.findByLoginId(loginId);
+        if (findUser.isEmpty()) {
+            throw new NoSuchException(NO_SUCH_EXCEPTION_USER);
+        }
+        return findUser.get().getId();
     }
 
     private List<UserResponse> transfer(List<User> users) {

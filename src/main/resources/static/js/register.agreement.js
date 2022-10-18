@@ -1,17 +1,14 @@
 $().ready(function () {
-    var $container = $('#container');
-    var $agreementAll = $container.find('input[name="agreement_all"]');
-    var $agreementService = $container.find('input[name="agreement_service"]');
-    var $agreementPrivacy = $container.find('input[name="agreement_privacy"]');
-    var $agreementRules = $container.find('input[name="agreement_rules"]');
-    var $agreementAd = $container.find('input[name="agreement_ad"]');
-    var $agreementIdentity = $container.find('input[name="agreement_identity"]');
-    var $agreementAge14 = $container.find('input[name="agreement_age14"]');
-    var $identityButton = $container.find('form.identity a.button');
-    var _set = {
-        campuses: []
-    };
-    var _fn = {
+    const $container = $('#container');
+    const $agreementAll = $container.find('input[name="agreement_all"]');
+    const $agreementService = $container.find('input[name="agreement_service"]');
+    const $agreementPrivacy = $container.find('input[name="agreement_privacy"]');
+    const $agreementRules = $container.find('input[name="agreement_rules"]');
+    const $agreementAd = $container.find('input[name="agreement_ad"]');
+    const $agreementIdentity = $container.find('input[name="agreement_identity"]');
+    const $agreementAge14 = $container.find('input[name="agreement_age14"]');
+    const $identityButton = $container.find('form.identity a.button');
+    const _fn = {
         init: function () {
             $agreementAll.on('change', function () {
                 _fn.toggleAll($(this));
@@ -47,7 +44,7 @@ $().ready(function () {
             }
         },
         toggleAgreement: function ($this) {
-            var $text = $this.parent().next('div.text');
+            const $text = $this.parent().next('div.text');
             if ($this.is(':checked')) {
                 $text.hide();
             } else {
@@ -56,7 +53,7 @@ $().ready(function () {
             }
         },
         toggleAgreementOne: function ($this) {
-            var $text = $this.parent().next('div.text');
+            const $text = $this.parent().next('div.text');
             if ($this.is(':checked')) {
                 $text.hide();
             } else {
@@ -84,26 +81,29 @@ $().ready(function () {
                 alert('만 14에 이상 가입에 대한 안내사항을 확인해주세요.');
                 return;
             }
-            $.ajax({
-                url: '/register/agreement/ad',
-                type: 'POST',
-                data: {
-                    agreement_ad: Number($agreementAd.is(":checked"))
-                },
-                success: function (data) {
-                    var $form = $this.parent('form');
-                    if (!$form.data('osname')) {
-                        if ($form.data('type') === 'checkplus') {
-                            window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
-                            $form.attr('target', 'popupChk');
-                        } else {
-                            window.open('', 'popupIPIN2', 'width=450, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
-                            $form.attr('target', 'popupIPIN2');
-                        }
-                    }
-                    $form.submit();
-                }
-            });
+            $container.find('input[name="agreementAd"]').attr("value", Number($agreementAd.is(":checked")));
+            const $form = $this.parent('form');
+            $form.submit();
+            // $.ajax({
+            //     url: '/register/agreement/ad',
+            //     type: 'POST',
+            //     data: {
+            //         agreement_ad: Number($agreementAd.is(":checked"))
+            //     },
+            //     success: function (data) {
+            //         var $form = $this.parent('form');
+            //         if (!$form.data('osname')) {
+            //             if ($form.data('type') === 'checkplus') {
+            //                 window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+            //                 $form.attr('target', 'popupChk');
+            //             } else {
+            //                 window.open('', 'popupIPIN2', 'width=450, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+            //                 $form.attr('target', 'popupIPIN2');
+            //             }
+            //         }
+            //         $form.submit();
+            //     }
+            // });
         }
     };
     _fn.init();

@@ -30,8 +30,8 @@
         <input type="text" name="name" placeholder="찾으시는 캠퍼스를 검색하세요." autocomplete="off">
     </form>
     <div class="campuslist">
-        <th:block th:each="school : ${schoolList}">
-            <a href="#"><span class="name" th:text="${school.name}">경희대</span><span class="count" th:text="${school.count}">47,956명</span></a>
+        <th:block th:each="school : ${schools}">
+            <a href="#"><span class="name" th:text="${school.name}">세종대</span><span class="count" th:text="${school.count}">47,956명</span></a>
         </th:block>
     </div>
 </aside>
