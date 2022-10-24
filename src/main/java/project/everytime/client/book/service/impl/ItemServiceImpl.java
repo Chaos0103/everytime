@@ -73,9 +73,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Long itemSoldOut(Long itemId) {
+    public Long soldOut(Long itemId) {
         Item findItem = getItem(itemId);
-        findItem.changeSoldOut(1);
+        findItem.soldOut();
         return findItem.getId();
     }
 

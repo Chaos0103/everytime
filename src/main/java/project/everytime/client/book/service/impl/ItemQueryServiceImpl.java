@@ -12,6 +12,8 @@ import project.everytime.exception.NoSuchException;
 import java.util.List;
 import java.util.Optional;
 
+import static project.everytime.exception.ExceptionMessage.*;
+
 @Service
 @RequiredArgsConstructor
 public class ItemQueryServiceImpl implements ItemQueryService {
@@ -33,9 +35,9 @@ public class ItemQueryServiceImpl implements ItemQueryService {
     }
 
     private Item getItem(Long itemId) {
-        Optional<Item> findItem = itemRepository.findById(itemId);
+        Optional<Item> findItem = itemRepository.findItem(itemId);
         if (findItem.isEmpty()) {
-            throw new NoSuchException();
+            throw new NoSuchException(NO_SUCH_EXCEPTION_ITEM);
         }
         return findItem.get();
     }

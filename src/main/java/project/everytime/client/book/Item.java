@@ -21,34 +21,40 @@ import static javax.persistence.FetchType.*;
 public class Item extends TimeBaseEntity {
 
     @Id @GeneratedValue
-    @Column(name = "item_id")
+    @Column(name = "item_id", unique = true, nullable = false, updatable = false)
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id", nullable = false, updatable = false)
     private Book book;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "school_id", nullable = false)
+    @JoinColumn(name = "school_id", nullable = false, updatable = false)
     private School school;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "lecture_id")
+    @JoinColumn(name = "lecture_id", updatable = false)
     private Lecture lecture;
 
-    private int soldOut;
-    private int price;
-    @Column(nullable = false, length = 4)
+    @Column(nullable = false)
+    private Integer soldOut;
+    @Column(nullable = false)
+    private Integer price;
+    @Column(updatable = false, nullable = false, length = 4)
     private String statusNote;
-    @Column(nullable = false, length = 4)
+    @Column(updatable = false, nullable = false, length = 4)
     private String statusDamage;
-    private int meansDelivery;
-    private int meansDirect;
+    @Column(updatable = false, nullable = false)
+    private Integer meansDelivery;
+    @Column(updatable = false, nullable = false)
+    private Integer meansDirect;
+    @Column(length = 500)
     private String comment;
+    @Column(updatable = false, length = 20)
     private String location;
     @Embedded
     private UploadFile coverImage;
@@ -78,7 +84,7 @@ public class Item extends TimeBaseEntity {
             ItemImage itemImage = new ItemImage(item, image);
             item.addImage(itemImage);
         }
-        item.changeSoldOut(0);
+        item.soldOut = 0;
         return item;
     }
 
@@ -88,8 +94,8 @@ public class Item extends TimeBaseEntity {
     }
 
     //== 비즈니스 로직 ==//
-    public void changeSoldOut(int soldOut) {
-        this.soldOut = soldOut;
+    public void soldOut() {
+        this.soldOut = 1;
     }
 
     public void changePrice(int price) {

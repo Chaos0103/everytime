@@ -15,5 +15,5 @@ public interface ItemService {
 
     Long editItemComment(Long itemId, String comment);
 
-    Long itemSoldOut(Long itemId);
+    Long soldOut(Long itemId);
 }

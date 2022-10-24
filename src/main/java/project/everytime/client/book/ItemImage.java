@@ -14,11 +14,11 @@ import javax.persistence.*;
 public class ItemImage extends TimeBaseEntity {
 
     @Id @GeneratedValue
-    @Column(name = "item_image_id")
+    @Column(name = "item_image_id", unique = true, nullable = false, updatable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "item_id", nullable = false, updatable = false)
     private Item item;
 
     @Embedded

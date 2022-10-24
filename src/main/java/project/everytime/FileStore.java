@@ -39,6 +39,5 @@ public class FileStore {
     private String extractExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
-
     }
 }
