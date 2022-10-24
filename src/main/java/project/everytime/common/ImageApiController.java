@@ -23,14 +23,12 @@ public class ImageApiController {
 
     @GetMapping(value = "/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] getImage(@PathVariable String fileName) {
-        FileInputStream fis = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        FileInputStream fileInputStream = null;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         String filePath = fileDir + fileName;
-        System.out.println("fileName = " + fileName);
-        System.out.println("filePath = " + filePath);
         try {
-            fis = new FileInputStream(filePath);
+            fileInputStream = new FileInputStream(filePath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -39,12 +37,12 @@ public class ImageApiController {
         byte[] buffer = new byte[1024];
         byte[] fileArray = null;
         try {
-            while ((readCount = fis.read(buffer)) != -1) {
-                baos.write(buffer, 0, readCount);
+            while ((readCount = fileInputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, readCount);
             }
-            fileArray = baos.toByteArray();
-            fis.close();
-            baos.close();
+            fileArray = byteArrayOutputStream.toByteArray();
+            fileInputStream.close();
+            byteArrayOutputStream.close();
         } catch (IOException e) {
             throw new RuntimeException("File Error");
         }
