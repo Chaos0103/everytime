@@ -25,8 +25,8 @@ public class KakaoApiController {
     private String key;
     private final String url = "https://dapi.kakao.com/v3/search/book";
 
-    @GetMapping("/bookTest")
-    public List<BookResponse> test(@RequestParam("keyword") String query) {
+    @GetMapping("/kakao/bookList")
+    public List<BookResponse> bookList(@RequestParam("keyword") String query) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", "KakaoAK " + key);

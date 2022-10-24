@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>에브리타임 책방</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" href="/static/css/about/style.css" th:href="@{/css/about/style.css}" rel="stylesheet">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
+
+    <script type="text/javascript" src="/static/js/book/jquery-3.1.0.min.js" th:src="@{/js/book/jquery-3.1.0.min.js}"></script>
+    <script type="text/javascript" src="/static/js/book/underscore-min.js" th:src="@{/js/book/underscore-min.js}"></script>
+    <script type="text/javascript" src="/static/js/book/common.js" th:src="@{/js/book/common.js}"></script>
+    <script type="text/javascript" src="/static/js/book/index.js" th:src="@{/js/book/index.js}"></script>
+</head>
+<body>
+    <header>
+        <div id="title">
+            <a href="/templates/book/book.html" th:href="@{/book}" class="logo"><img src="/static/images/book/logo.png" th:src="@{/images/book/logo.png}" alt="에브리타임 책방"></a>
+        </div>
+        <div id="search">
+            <form>
+                <input type="text" name="keyword" placeholder="구매할 책을 검색하세요!" autocomplete="off">
+                <div class="searchbutton">
+                    <span class="icons search-darkgray-16"></span>
+                </div>
+            </form>
+        </div>
+    </header>
+    <div id="items"></div>
+    <div id="loading"><img src="/assets/loading.svg"></div>
+    <div id="bar">
+        <nav class="trisection">
+            <a href="/templates/book/book.html" th:href="@{/book}" class="home"><span class="icons home-darkgray-16"></span><span class="text">홈</span></a>
+            <a href="/templates/book/sell.html" th:href="@{/book/sell}" class="sell"><span class="icons sell-darkgray-16"></span><span class="text">판매하기</span></a>
+            <a href="/templates/book/my.html" th:href="@{/book/my}" class="my"><span class="icons my-darkgray-16"></span><span class="text">마이페이지</span></a>
+        </nav>
+    </div>
+    <div id="bottom">
+        <ul class="links">
+            <li class="copyright"><a href="/templates/main.html" th:href="@{/}">에브리타임</a></li>
+            <li><a href="#">문의하기</a></li>
+            <li><a href="#">커뮤니티이용규칙</a></li>
+            <li><a href="#">개인정보처리방침</a></li>
+        </ul>
+    </div>
+    <script type="text/javascript"> bookstore.data.user = { id: 3324309, nickname: '동팔이', school_id: 36, campus_id: 60, campus_full_name: '세종대', campus_latitude: 37.551621, campus_longitude: 127.073785 }; bookstore.data.campuses = [{id: 60, full_name: '세종대'}]; </script>
+</body>
+</html>
