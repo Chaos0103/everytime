@@ -93,7 +93,7 @@ public class BookApiController {
     @PostMapping("/soldout")
     public Long soldOut(@RequestBody ItemRequest request) {
         log.debug("itemId={}", request.getItemId());
-        Long itemId = itemService.itemSoldOut(request.getItemId());
+        Long itemId = itemService.soldOut(request.getItemId());
         return itemId;
     }
 

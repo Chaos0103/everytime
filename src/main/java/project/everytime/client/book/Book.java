@@ -16,9 +16,10 @@ import javax.persistence.Id;
 public class Book extends TimeBaseEntity {
 
     @Id @GeneratedValue
-    @Column(name = "book_id")
+    @Column(name = "book_id", unique = true, nullable = false, updatable = false)
     private Long id;
-    @Column(updatable = false, nullable = false, length = 13)
+
+    @Column(nullable = false, updatable = false, length = 13)
     private String isbn;
     @Column(nullable = false, length = 100)
     private String title;
