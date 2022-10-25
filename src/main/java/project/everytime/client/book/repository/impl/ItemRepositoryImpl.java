@@ -33,7 +33,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
                         isMine(mine, userId),
                         titleContains(title)
                 )
-                .limit(start + 40)
+                .limit(40)
                 .offset(start)
                 .fetch();
     }
@@ -44,7 +44,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
                 .select(item).distinct()
                 .from(item)
                 .join(item.book, book).fetchJoin()
-                .join(item.images, itemImage).fetchJoin()
+                .leftJoin(item.images, itemImage).fetchJoin()
                 .where(item.id.eq(itemId))
                 .fetchOne();
         return Optional.ofNullable(result);

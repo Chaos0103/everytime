@@ -14,7 +14,7 @@ public class UploadFile {
 
     @Column(nullable = false, updatable = false)
     private String uploadFileName;
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private String storeFileName;
 
     public UploadFile(String uploadFileName, String storeFileName) {
