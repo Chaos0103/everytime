@@ -31,7 +31,7 @@
     </form>
     <div class="campuslist">
         <th:block th:each="school : ${schools}">
-            <a href="#" th:href="|/${school.id}|"><span class="name" th:text="${school.name}">세종대</span><span class="count" th:text="${school.count}">47,956명</span></a>
+            <a href="#" th:href="|/preview/${school.id}|"><span class="name" th:text="${school.name}">세종대</span><span class="count" th:text="${school.count}">47,956명</span></a>
         </th:block>
     </div>
 </aside>

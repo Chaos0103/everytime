@@ -141,16 +141,16 @@
     color: #a6a6a6; font-size: 11px; letter-spacing: 0; background-repeat: no-repeat; background-size: 11px 11px; background-position: left center;
 }
 #container div.card > div.board > a.article > ul.status > li.vote {
-    background-image: url('/images/container.articles.vote.png');
+    background-image: url('/images/container/container.articles.vote.png');
 }
 #container div.card > div.board > a.article > ul.status > li.comment {
-    background-image: url('/images/container.articles.comment.png');
+    background-image: url('/images/container/container.articles.comment.png');
 }
 #container div.card > div.board > a.article > ul.status > li.vote.active {
-    color: #c62917; background-image: url('/images/container.articles.vote.png');
+    color: #c62917; background-image: url('/images/container/container.articles.vote.png');
 }
 #container div.card > div.board > a.article > ul.status > li.comment.active {
-    color: #0ca5af; background-image: url('/images/container.articles.comment.png');
+    color: #0ca5af; background-image: url('/images/container/container.articles.comment.png');
 }
 #container div.card > div.board > a.article > span.star {
     display: block; margin-bottom: 5px; width: 60px; height: 12px; background: transparent url('/images/app.subject.rating.details.star.off.png') no-repeat; background-size: 60px 12px;

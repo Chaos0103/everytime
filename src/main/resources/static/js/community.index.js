@@ -1,8 +1,8 @@
 $().ready(function () {
-    var $container = $('#container');
-    var $banners = $('#banners');
-    var $main;
-    var _fn = {
+    const $container = $('#container');
+    const $banners = $('#banners');
+    let $main;
+    const _fn = {
         initiate: function () {
             $main = $container.find('div.main');
             _fn.loadHome();
@@ -17,14 +17,15 @@ $().ready(function () {
             });
         },
         ajaxHome: function (callback) {
-            var condition = {
-                campus_id: $('#communityCampusId').val()
+            const condition = {
+                schoolId: $('#communitySchoolId').val()
             };
             $.ajax({
                 url: '/find/community/web',
-                dataType: "json",
-                data: condition,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
                 type: 'POST',
+                data: JSON.stringify(condition),
                 success: function (data) {
                     callback(data);
                 }
@@ -56,7 +57,7 @@ $().ready(function () {
                 }
                 $card.appendTo($main);
             }
-            var $response = $(data).find('response');
+            const $response = $(data).find('response');
             $response.find('board').each(function () {
                 var $boardData = $(this);
                 var boardType = $boardData.attr('type');

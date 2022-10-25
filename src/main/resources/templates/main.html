@@ -9,7 +9,7 @@
 
     <link type="text/css" href="/static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet">
     <link type="text/css" href="/static/css/common.partial.css" th:href="@{/css/common.partial.css}" rel="stylesheet">
-    <link type="text/css" href="/css/container/container.community.css" th:href="@{/css/container/container.community.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/container/container.community.css" th:href="@{/css/container/container.community.css}" rel="stylesheet">
     <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
 
     <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
@@ -23,14 +23,13 @@
     <div class="wrap">
         <div id="logo">
             <a href="/" th:href="@{/}"><img src="/images/common/nav.logo.png" th:src="@{/images/common/nav.logo.png}" alt="nav.logo.png"></a>
-            <p><span class="name multiple">에브리타임</span><span class="subname">세종대</span></p>
+            <p><span class="name multiple">에브리타임</span><span class="subname" th:text="${loginUser.schoolName}">세종대</span></p>
         </div>
         <div id="account">
             <a href="/message" th:href="@{/message}" title="쪽지함" class="icon message">쪽지함</a>
             <a href="/my" th:href="@{/my}" title="내 정보" class="icon my">내 정보</a>
-            <!--            <input type="hidden" id="userUserid" value="lyt1228">-->
-            <!--            <input type="hidden" id="userSchool" value="36">-->
-            <!--            <input type="hidden" id="userCampus" value="60">-->
+            <input type="hidden" id="userLoginId" th:value="${loginUser.loginId}">
+            <input type="hidden" id="userSchoolId" th:value="${loginUser.schoolId}">
         </div>
         <ul id="menu">
             <li class="active"><a href="/" th:href="@{/}">게시판</a></li>
@@ -45,96 +44,44 @@
 <div id="submenu">
     <div class="wrap">
         <div class="divider"></div>
-        <div class="group">
+        <div class="group" th:each="boardList : ${basic}" th:classappend="${boardListStat.index > 1} ? 'hidden' : _">
             <ul>
-                <li><a href="/36" data-id="36" class="new">자유게시판</a></li>
-                <li><a href="/37" data-id="37">비밀게시판</a></li>
-                <li><a href="/38" data-id="38">졸업생게시판</a></li>
-                <li><a href="/39" data-id="39">새내기게시판</a></li>
-                <li><a href="/40" data-id="40">시사·이슈</a></li>
-                <li><a href="/41" data-id="41">장터게시판</a></li>
-                <li><a href="/42" data-id="42">정보게시판</a></li>
-                <li><a href="/43" data-id="43">홍보게시판</a></li>
-            </ul>
-        </div>
-        <div class="group">
-            <ul>
-                <li><a href="#" data-id="418786">동아리·학회</a></li>
+                <li th:each="board : ${boardList}"><a href="/36" th:href="|/${board.boardId}|" data-id="36" th:data-id="${board.boardId}" th:text="${board.boardName}">자유게시판</a></li>
+                <li th:if="${boardListStat.index == 1 && basic.size() > 2}"><a class="more">더 보기</a></li>
             </ul>
         </div>
         <div class="divider"></div>
-        <div class="group">
+        <div class="group" th:each="boardList : ${career}" th:classappend="${boardListStat.index > 0} ? 'hidden' : _">
             <ul>
-                <li><a href="#" data-id="377467">취업·진로</a></li>
-                <li><a href="#" data-id="477445">공무원 게시판</a></li>
-                <li><a href="#" data-id="492291">CPA, 금공 준비반</a></li>
+                <li th:each="board : ${boardList}"><a href="/36" th:href="|/${board.boardId}|" data-id="36" th:data-id="${board.boardId}" th:text="${board.boardName}">자유게시판</a></li>
+                <li th:if="${boardListStat.index == 0 && career.size() > 1}"><a class="more">더 보기</a></li>
             </ul>
         </div>
         <div class="divider"></div>
-        <div class="group">
+        <div class="group" th:each="boardList : ${group}" th:classappend="${boardListStat.index > 0} ? 'hidden' : _">
             <ul>
-                <li><a href="#" data-id="509699">총동아리연합회</a></li>
-                <li><a href="#" data-id="483471">세종대신문사</a></li>
-                <li><a href="#" data-id="486137">방송국</a></li>
-                <li><a href="#" data-id="508542">영자신문사</a></li>
-                <li><a href="#" data-id="507594">전정대 학생회</a></li>
-                <li><a href="#" data-id="506628">생명과학대학 학생회</a></li>
-                <li><a href="#" data-id="506852">법학부 학생회</a></li>
-                <li><a class="more">더 보기</a></li>
-            </ul>
-        </div>
-        <div class="group hidden">
-            <ul>
-                <li><a href="#" data-id="514324">소프트웨어융합대학 학생회</a></li>
+                <li th:each="board : ${boardList}"><a href="/36" th:href="|/${board.boardId}|" data-id="36" th:data-id="${board.boardId}" th:text="${board.boardName}">자유게시판</a></li>
+                <li th:if="${boardListStat.index == 0 && group.size() > 1}"><a class="more">더 보기</a></li>
             </ul>
         </div>
         <div class="divider"></div>
-        <div class="group">
+        <div class="group" th:each="boardList : ${department}" th:classappend="${boardListStat.index > 0} ? 'hidden' : _">
             <ul>
-                <li><a href="#" data-id="473986">생시부 게시판</a></li>
-                <li><a href="#" data-id="512490">만화애니메이션텍 게시판</a></li>
-                <li><a href="#" data-id="490112">디이노 게시판</a></li>
-                <li><a href="#" data-id="484286">물리천문학과 정보 및 교류 게시판</a></li>
+                <li th:each="board : ${boardList}"><a href="/36" th:href="|/${board.boardId}|" data-id="36" th:data-id="${board.boardId}" th:text="${board.boardName}">자유게시판</a></li>
+                <li th:if="${boardListStat.index == 0 && department.size() > 1}"><a class="more">더 보기</a></li>
             </ul>
         </div>
         <div class="divider"></div>
-        <div class="group">
+        <div class="group" th:each="boardList : ${custom}" th:classappend="${boardListStat.index > 1} ? 'hidden' : _">
             <ul>
-                <li><a href="#" data-id="389027">은밀한게시판</a></li>
-                <li><a href="#" data-id="391378">연애게시판</a></li>
-                <li><a href="#" data-id="419439">헬스 갤러리</a></li>
-                <li><a href="#" data-id="419832">코딩게시판</a></li>
-                <li><a href="#" data-id="456127">동네친구를 찾아보자</a></li>
-                <li><a href="#" data-id="389287">퀴어 게시판</a></li>
-                <li><a href="#" data-id="424353">애니덕후 게시판</a></li>
-                <li><a href="#" data-id="453659">아이돌덕질게시판</a></li>
-            </ul>
-        </div>
-        <div class="group">
-            <ul>
-                <li><a href="#" data-id="390999">끝말잇기 게시판😏😏🍉</a></li>
-                <li><a href="#" data-id="393410">이상형게시판</a></li>
-                <li><a href="#" data-id="390966">노래 추천 게시판🎵</a></li>
-                <li><a href="#" data-id="399074">메이플스토리 게시판</a></li>
-                <li><a href="#" data-id="487059">케인인님 게시판</a></li>
-                <li><a href="#" data-id="508039">이세돌게시판</a></li>
-                <li><a href="#" data-id="420671">로스트아크 게시판</a></li>
-                <li><a class="more">더 보기</a></li>
-            </ul>
-        </div>
-        <div class="group hidden">
-            <ul>
-                <li><a href="#" data-id="452292">주식투자 게시판</a></li>
-                <li><a href="#" data-id="509033">연뮤 게시판</a></li>
-                <li><a href="#" data-id="387226">세종냥이 게시판</a></li>
-                <li><a href="#" data-id="517947">패션 게시판</a></li>
-                <li><a href="/community/search" class="search">게시판 찾기</a></li>
+                <li th:each="board : ${boardList}"><a href="/36" th:href="|/${board.boardId}|" data-id="36" th:data-id="${board.boardId}" th:text="${board.boardName}">자유게시판</a></li>
+                <li th:if="${boardListStat.index == 1 && custom.size() > 2}"><a class="more">더 보기</a></li>
             </ul>
         </div>
         <div class="divider"></div>
         <hr>
     </div>
-    <input type="hidden" id="communityCampusId" value="60">
+    <input type="hidden" id="communitySchoolId" value="-1" th:value="${loginUser.schoolId}">
 </div>
 <div id="container" class="community">
     <div class="banners" th:each="advertisement : ${mainAdvertisement}">
@@ -190,7 +137,7 @@
     var _clientTime = new Date().getTime();
     var _diffTime = _clientTime - _serverTime;
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-22022140-4"></script>
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-22022140-4"></script>-->
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}

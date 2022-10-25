@@ -111,7 +111,7 @@ const bookstore = {
         },
         findMessageBoxes: function (callback) {
             $.ajax({
-                url: '/find/messageboxes.xml',
+                url: '/find/messageboxes',
                 type: 'GET',
                 success: function (response) {
                     callback(response);
@@ -120,7 +120,7 @@ const bookstore = {
         },
         findMessages: function (data, callback) {
             $.ajax({
-                url: '/find/messages.xml',
+                url: '/find/messages',
                 type: 'GET',
                 data: data,
                 success: function (response) {
@@ -207,7 +207,9 @@ const bookstore = {
             $.ajax({
                 url: '/save/message',
                 type: 'POST',
-                data: data,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(data),
                 success: function (response) {
                     callback(response);
                 }

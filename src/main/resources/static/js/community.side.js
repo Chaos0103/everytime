@@ -139,14 +139,15 @@ $(document).ready(function () {
             });
         },
         ajaxSide: function (callback) {
-            var condition = {
-                campus_id: $('#communityCampusId').val()
+            const condition = {
+                schoolId: $('#communitySchoolId').val()
             };
             $.ajax({
                 url: '/find/community/webside',
-                xhrFields: {withCredentials: true},
-                data: condition,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
                 type: 'POST',
+                data: JSON.stringify(condition),
                 success: function (data) {
                     callback(data);
                 }
@@ -167,22 +168,21 @@ $(document).ready(function () {
                 _fn.createLecture(data.lecture);
             }
         },
-        createPopArticle: function ($data) {
-            var $card = $('<div></div>').addClass('card');
-            var $board = $('<div></div>').addClass('board').appendTo($card);
-            var $h3 = $('<h3></h3>').appendTo($board);
+        createPopArticle: function (data) {
+            const $card = $('<div></div>').addClass('card');
+            const $board = $('<div></div>').addClass('board').appendTo($card);
+            const $h3 = $('<h3></h3>').appendTo($board);
             $('<a></a>').text('실시간 인기 글').appendTo($h3);
-            var $articlesData = $data.find('article');
-            $articlesData.each(function () {
-                _gfn.createArticleItem($board, $(this));
-            });
+            for (let i = 0; i < data.length; i++) {
+                _gfn.createArticleItem($board, data[i]);
+            }
             $card.appendTo($rightside);
         },
         createHotArticle: function (data) {
-            var $card = $('<div></div>').addClass('card');
-            var $board = $('<div></div>').addClass('board').appendTo($card);
-            var $h3 = $('<h3></h3>').appendTo($board);
-            var $h3a = $('<a></a>').attr('href', '/hotarticle').text('HOT 게시물').appendTo($h3);
+            const $card = $('<div></div>').addClass('card');
+            const $board = $('<div></div>').addClass('board').appendTo($card);
+            const $h3 = $('<h3></h3>').appendTo($board);
+            const $h3a = $('<a></a>').attr('href', '/hotarticle').text('HOT 게시물').appendTo($h3);
             $('<span></span>').text('더 보기').appendTo($h3a);
             for (let i = 0; i < data.length; i++) {
                 _gfn.createListItem($board, data[i]);

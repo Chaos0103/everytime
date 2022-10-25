@@ -42,9 +42,9 @@ bookstore.view = {
             $('<span></span>').addClass('text').text('설명 수정').appendTo($editButton);
 
         } else {
-            var messageUrl = '/message/item/' + data.id;
-            var $buttons = $('<p></p>').addClass('buttons').appendTo($groupItem);
-            var $messageButton = $('<a></a>').addClass('red message').attr('href', messageUrl).appendTo($buttons);
+            const messageUrl = '/book/message/item/' + data.id;
+            const $buttons = $('<p></p>').addClass('buttons').appendTo($groupItem);
+            const $messageButton = $('<a></a>').addClass('red message').attr('href', messageUrl).appendTo($buttons);
             $('<span></span>').addClass('icons message-white-16').appendTo($messageButton);
             $('<span></span>').addClass('text').text('판매자에게 쪽지 보내기').appendTo($messageButton);
         }
