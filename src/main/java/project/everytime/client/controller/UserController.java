@@ -3,7 +3,6 @@ package project.everytime.client.controller;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,9 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.everytime.client.user.dto.LoginUser;
 import project.everytime.client.user.service.UserService;
+import project.everytime.exception.NotEqualsException;
 import project.everytime.login.Login;
-
-import javax.validation.constraints.NotBlank;
 
 @Slf4j
 @Controller
@@ -28,7 +26,6 @@ public class UserController {
 
     @GetMapping
     public String myPage(@Login LoginUser loginUser, Model model) {
-        log.debug("loginUser = {}", loginUser);
         model.addAttribute("loginUser", loginUser);
         return "my/my";
     }
@@ -43,19 +40,27 @@ public class UserController {
             @Login LoginUser loginUser,
             @Validated @ModelAttribute("form") PasswordEditForm form,
             BindingResult bindingResult) {
-        log.debug("call = /my/password");
 
         if (bindingResult.hasErrors()) {
             return "my/password";
         }
 
-        if (!form.getNewPassword().equals(form.getCheckNewPassword())) {
+        if (newPasswordNotEq(form)) {
             return "my/password";
         }
 
-        userService.editPassword(loginUser.getId(), form.getOriginPassword(), form.getNewPassword());
+        try {
+            userService.editPassword(loginUser.getId(), form.getOriginPassword(), form.getNewPassword());
+        } catch (NotEqualsException e) {
+            log.debug(e.getMessage());
+            return "my/password";
+        }
 
         return "redirect:/logout";
+    }
+
+    private boolean newPasswordNotEq(PasswordEditForm form) {
+        return !form.getNewPassword().equals(form.getCheckNewPassword());
     }
 
     @GetMapping("/email")
