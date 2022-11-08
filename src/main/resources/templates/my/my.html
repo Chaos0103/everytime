@@ -14,12 +14,6 @@
     <link type="text/css" href="/static/css/page/page.common.css" th:href="@{/css/page/page.common.css}" rel="stylesheet">
     <link type="text/css" href="/static/css/page/page.common.index.css" th:href="@{/css/page/page.common.index.css}" rel="stylesheet">
     <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
-
-<!--    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/community.side.js" th:src="@{/js/community.side.js}"></script>-->
-<!--    <script type="text/javascript" src="/static/js/community.index.js" th:src="@{/js/community.index.js}"></script>-->
 </head>
 <body>
 <nav>
@@ -56,7 +50,7 @@
                 <img src="/static/images/0.png" th:src="@{/images/0.png}" alt="0.png">
                 <h3 th:text="${loginUser.loginId}">loginId</h3>
                 <p><span th:text="${loginUser.username}">username</span> / <span th:text="${loginUser.nickname}">nickname</span></p>
-                <p><span>세종대 </span><span th:text="|${loginUser.yearOfAdmission.substring(2)}학번|">n학번</span></p>
+                <p><span>세종대 </span><span th:text="|${loginUser.enterYear.substring(2)}학번|">n학번</span></p>
             </div>
         </section>
         <section>
