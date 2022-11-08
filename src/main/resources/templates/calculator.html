@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>에브리타임</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" href="/static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/common.partial.css" th:href="@{/css/common.partial.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/container/container.modal.css" th:href="@{/css/container.modal.css}" rel="stylesheet">
+    <link type="text/css" href="/static/css/calculator.css" th:href="@{/css/calculator.css}" rel="stylesheet">
+    <link type="image/x-icon" href="/static/icon/favicon.ico" th:href="@{/icon/favicon.ico}" rel="shortcut icon">
+
+    <script type="text/javascript" src="/static/js/extensions.jquery-1.10.2.min.js" th:src="@{/js/extensions.jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="/static/js/extensions.underscore-min.js" th:src="@{/js/extensions.underscore-min.js}"></script>
+    <script type="text/javascript" src="/static/js/common.js" th:src="@{/js/common.js}"></script>
+    <script type="text/javascript" src="/static/js/extensions.jquery.flot.min.js"></script>
+    <script type="text/javascript" src="/static/js/extensions.jquery.flot.pie.min.js"></script>
+    <script type="text/javascript" src="/static/js/extensions.jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" src="/static/js/calculator.index.js" th:src="@{/js/calculator.index.js}"></script>
+</head>
+<body>
+<nav>
+    <div class="wrap">
+        <div id="logo">
+            <a href="/" th:href="@{/}"><img src="/images/common/nav.logo.png" th:src="@{/images/common/nav.logo.png}" alt="nav.logo.png"></a>
+            <p><span class="name multiple">에브리타임</span><span class="subname" th:text="${loginUser.schoolName}">세종대</span></p>
+        </div>
+        <div id="account">
+            <a href="/message" th:href="@{/message}" title="쪽지함" class="icon message">쪽지함</a>
+            <a href="/my" th:href="@{/my}" title="내 정보" class="icon my">내 정보</a>
+            <input type="hidden" id="userLoginId" th:value="${loginUser.loginId}">
+            <input type="hidden" id="userSchoolId" th:value="${loginUser.schoolId}">
+        </div>
+        <ul id="menu">
+            <li><a href="/" th:href="@{/}">게시판</a></li>
+            <li><a href="/timetable" th:href="@{/timetable}">시간표</a></li>
+            <li><a href="/lecture" th:href="@{/lecture}">강의실</a></li>
+            <li class="active"><a href="/calculator" th:href="@{/calculator}">학점계산기</a></li>
+            <li><a href="/friend" th:href="@{/friends}">친구</a></li>
+            <li><a href="/book" th:href="@{/book}">책방</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="container" class="calculator">
+    <input type="hidden" id="userId" value="3324309">
+    <input type="hidden" id="userRequiredCredit" value="70">
+    <input type="hidden" id="userGradeType" value="">
+    <aside class="none">
+        <div class="title">
+            <a class="hamburger"></a>
+            <h1>학점 계산기</h1>
+        </div>
+    </aside>
+    <div class="section">
+        <div class="chart">
+            <article class="overview">
+                <div class="column gpa">
+                    <h4>전체 평점</h4>
+                    <p class="value">4.5</p>
+                    <p class="total">/ 4.5</p>
+                </div>
+                <div class="column major">
+                    <h4>전공 평점</h4>
+                    <p class="value">4.5</p>
+                    <p class="total">/ 4.5</p>
+                </div>
+                <div class="column acquisition">
+                    <h4>취득 학점</h4>
+                    <p class="value">72</p>
+                    <p class="total" title="졸업 학점 설정">70</p>
+                </div>
+            </article>
+            <article class="semester">
+                <div class="series">
+                    <div class="legend"></div>
+                    <div class="plot"></div>
+                </div>
+                <ul class="ratioplot">
+                    <li>
+                        <span class="grade">A+</span>
+                        <div class="ratiowrapper">
+                            <div class="ratiobar" style="width: 100%; height: 4px; background-color: #f28572;"></div>
+                            <span class="ratiotext" style="left: 100%; color: #f28572;">100%</span>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+        </div>
+        <div class="menu">
+            <ol>
+                <li><a href="#">3학년 1학기</a></li>
+                <li><a href="#">3학년 2학기</a></li>
+                <li class="active"><a href="#">4학년 1학기</a></li>
+                <li><a href="#">4학년 2학기</a></li>
+            </ol>
+        </div>
+        <table class="subjects">
+            <caption>
+                <h3>4학년 1학기</h3>
+                <dl class="information">
+                    <dt>평점</dt>
+                    <dd class="gpa">4.5</dd>
+                    <dt>전공</dt>
+                    <dd class="major">4.5</dd>
+                    <dt>취득</dt>
+                    <dd class="acquisition">19</dd>
+                </dl>
+                <a class="import">시간표 불러오기</a>
+            </caption>
+            <thead>
+            <tr>
+                <th class="name">과목명</th>
+                <th class="credit">학점</th>
+                <th class="grade">성적</th>
+                <th class="major">전공</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <input type="text" max="50" name="name" value="밍술이와 술마시기">
+                </td>
+                <td>
+                    <input type="number" maxlength="4" name="credit" value="19">
+                </td>
+                <td>
+                    <select>
+                        <option value="0" selected="selected" name="grade">A+</option>
+                    </select>
+                </td>
+                <td>
+                    <label>
+                        <input type="checkbox" name="major" checked>
+                        <span></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" max="50" name="name" value="">
+                </td>
+                <td>
+                    <input type="number" maxlength="4" name="credit" value="">
+                </td>
+                <td>
+                    <select>
+                        <option value="0" selected="selected" name="grade">A+</option>
+                    </select>
+                </td>
+                <td>
+                    <label>
+                        <input type="checkbox" name="major">
+                        <span></span>
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <a class="new">더 입력하기</a>
+                    <a class="reset">초기화</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <hr>
+    <form id="importForm" class="modal">
+        <a title="닫기" class="close"></a>
+        <h3>내 시간표 가져오기</h3>
+        <p>
+            <label>시간표 선택</label>
+            <select name="semester"></select>
+        </p>
+        <input type="submit" value="가져오기" class="button">
+    </form>
+    <form id="requiredCreditForm" class="modal">
+        <a title="닫기" class="close"></a>
+        <h3>졸업 학점 설정</h3>
+        <p>
+            <label>졸업 학점</label>
+            <input type="number" name="required_credit" maxlength="3" class="text">
+        </p>
+        <input type="submit" value="저장" class="button">
+    </form>
+</div>
+<div id="bottom">
+    <ul class="links">
+        <li><a href="/page/serviceagreement" th:href="@{/page/serviceagreement}">이용약관</a></li>
+        <li class="privacy"><a href="/page/privacy" th:href="@{/page/privacy}">개인정보처리방침</a></li>
+        <li><a href="/page/rules" th:href="@{/page/rules}">커뮤니티이용규칙</a></li>
+        <li><a href="/notice" th:href="@{/notice}">공지사항</a></li>
+        <li><a href="/page/faq" th:href="@{/page/faq}">문의하기</a></li>
+        <li class="copyright"><a href="/" th:href="@{/}">&copy; 에브리타임</a></li>
+    </ul>
+</div>
+</body>
+</html>
